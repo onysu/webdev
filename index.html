@@ -22,7 +22,64 @@
     color="#712cf9">
   <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon.ico">
   <meta name="theme-color" content="#712cf9">
-  <link href="offcanvas-navbar.css" rel="stylesheet">
+  <!-- <link href="offcanvas-navbar.css" rel="stylesheet"> -->
+  <style>
+    html,
+    body {
+      overflow-x: hidden;
+      /* Prevent scroll on narrow devices */
+    }
+
+    body {
+      padding-top: 56px;
+    }
+
+    @media (max-width: 991.98px) {
+      .offcanvas-collapse {
+        position: fixed;
+        top: 56px;
+        /* Height of navbar */
+        bottom: 0;
+        left: 100%;
+        width: 100%;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        overflow-y: auto;
+        visibility: hidden;
+        background-color: #343a40;
+        transition: transform .3s ease-in-out, visibility .3s ease-in-out;
+      }
+
+      .offcanvas-collapse.open {
+        visibility: visible;
+        transform: translateX(-100%);
+      }
+    }
+
+    .nav-scroller .nav {
+      color: rgba(255, 255, 255, .75);
+    }
+
+    .nav-scroller .nav-link {
+      padding-top: .75rem;
+      padding-bottom: .75rem;
+      font-size: .875rem;
+      color: #6c757d;
+    }
+
+    .nav-scroller .nav-link:hover {
+      color: #007bff;
+    }
+
+    .nav-scroller .active {
+      font-weight: 500;
+      color: #343a40;
+    }
+
+    .bg-purple {
+      background-color: #6f42c1;
+    }
+  </style>
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -336,7 +393,16 @@
     </div>
   </main>
   <script src="https://getbootstrap.com/docs/5.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="offcanvas-navbar.js" class="astro-vvvwv3sm"></script>
+  <!-- <script src="offcanvas-navbar.js" class="astro-vvvwv3sm"></script> -->
+  <script>
+    (() => {
+      'use strict'
+
+      document.querySelector('#navbarSideCollapse').addEventListener('click', () => {
+        document.querySelector('.offcanvas-collapse').classList.toggle('open')
+      })
+    })()
+  </script>
 </body>
 
 </html>
