@@ -159,38 +159,100 @@
   <nav class="py-2 bg-body-tertiary border-bottom">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a>
+        <li class="nav-item">
+          <a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill me-2"
+              viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+            </svg>
+            0123456789</a>
         </li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">About</a></li>
+        <li class="nav-item">
+          <a href="#" class="nav-link link-body-emphasis px-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope me-2"
+              viewBox="0 0 16 16">
+              <path
+                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+            </svg>
+            contoh@email.com</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a href="#" class="nav-link link-body-emphasis px-2">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link link-body-emphasis px-2">FAQs</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link link-body-emphasis px-2">About</a>
+        </li> -->
       </ul>
       <ul class="nav">
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Login</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Sign up</a></li>
+        <li class="nav-item">
+          <a href="#" class="nav-link link-body-emphasis px-2">Login</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link link-body-emphasis px-2">Sign up</a>
+        </li>
       </ul>
     </div>
   </nav>
-  <header class="py-3 mb-4 border-bottom">
-    <!-- <div class="container d-flex flex-wrap justify-content-center"> -->
-    <div class="container d-flex flex-wrap">
-      <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
-        <img class="me-3" src="assets/images/programmer.png" alt="" width="40">
+
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <img src="assets/images/programmer.png" alt="" class="me-3" width="40">
         <!-- <svg class="bi me-2" width="40" height="32" aria-hidden="true">
           <use xlink:href="#bootstrap"></use>
         </svg> -->
-        <span class="fs-4">Double header</span>
+        <span class="fs-4">Simple header</span>
       </a>
-      <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-      <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-    </form> -->
-    </div>
-  </header>
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+      </ul>
+    </header>
+  </div>
 
   <main class="container">
     <h1>WebDev</h1>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe, quis pariatur illo ut unde enim aliquam nam fugiat, dignissimos libero quaerat veritatis necessitatibus nostrum ipsum qui assumenda quasi asperiores rerum molestias distinctio perspiciatis optio ullam, sed nobis? Laboriosam voluptatem omnis, facere ab explicabo tempora harum quod accusantium nemo saepe, cumque voluptate non debitis quidem aliquam nesciunt consectetur asperiores, accusamus numquam obcaecati aut molestias fugit illum? Ipsa, voluptas non ex libero nemo ab mollitia et expedita dolorem aspernatur unde corporis sit ad hic optio dolorum minima esse excepturi consectetur nesciunt in. Rerum adipisci facilis dignissimos iure voluptas quo aspernatur quasi optio maiores qui illo corrupti, labore voluptatibus nihil aperiam similique ipsa pariatur quae dolorem sequi error deserunt praesentium repellendus magni. Tempore atque cupiditate provident expedita architecto enim ipsam porro minus id debitis recusandae nostrum sed, quas unde voluptates neque? Nobis qui nostrum excepturi, velit autem aut et rerum repellendus vero ullam asperiores adipisci perspiciatis quidem voluptate ratione ad earum sunt, eligendi corporis aperiam dolor iusto ab. Porro totam dolorum cumque cupiditate quisquam architecto excepturi! Deserunt ipsum incidunt laudantium aliquid illo minus qui laboriosam in praesentium eos, ut sunt sint minima rem, illum corporis vel delectus. Id nisi quasi, minima, mollitia distinctio sequi iste eveniet quo laudantium iure quae! Itaque eaque repellat sint animi veritatis quidem dolore, quasi atque, nihil reprehenderit mollitia modi perspiciatis! Ut tempore accusamus quisquam quos, voluptatem magnam velit, impedit quia tempora, quidem ad enim voluptate incidunt corrupti consequatur ea deserunt officia aliquam quibusdam facere nam et! Id quas ea non, doloremque, eos odit vel quos hic quisquam vitae quis culpa natus illo eius exercitationem laboriosam impedit similique magnam necessitatibus soluta veniam, tenetur aspernatur assumenda ipsa! Ut voluptatum saepe possimus totam sed facere quibusdam tempore unde? Voluptatum atque accusamus illum repellat eius ipsa facilis a molestiae perspiciatis vero beatae, sapiente nobis quibusdam nulla ullam aliquid non, nam laborum fugiat sint voluptatibus et praesentium! Dignissimos quasi, quod sit deserunt harum aliquid illo et consequuntur, libero similique maiores assumenda nihil molestiae odit. Consequatur quaerat voluptatibus culpa id praesentium sed, ratione quibusdam modi sapiente eligendi commodi aliquam nesciunt dolorum totam corrupti consectetur sit tempora veniam. Eveniet, accusantium minima, nemo officia numquam autem nostrum at placeat, commodi nobis perferendis dignissimos deserunt voluptatum. Cupiditate dolores quisquam dolorem nihil minima autem porro? Exercitationem qui omnis aliquam architecto, ad, doloremque voluptas maxime fuga, deserunt molestias totam. Quam cum at facere similique nobis est deserunt aut quasi natus laudantium enim ab assumenda qui recusandae pariatur dolore impedit eligendi beatae, mollitia culpa aperiam consequatur rem! Aperiam dicta in iste nesciunt amet ut reiciendis eos dolores temporibus unde! Recusandae dolore voluptate ea ex asperiores quod perferendis sapiente quos ullam possimus corrupti, pariatur odio itaque iure nihil illum amet qui quaerat! Eligendi totam eos mollitia quia placeat nostrum obcaecati illum facilis? Sapiente consequatur eos inventore et in nihil corporis temporibus aperiam eius sunt officia unde, accusantium ad, nostrum atque nobis accusamus impedit delectus labore assumenda debitis. Pariatur nihil nisi tenetur neque provident, quas, eveniet quam necessitatibus earum ducimus tempora minima!</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe, quis pariatur illo ut unde enim aliquam nam
+      fugiat, dignissimos libero quaerat veritatis necessitatibus nostrum ipsum qui assumenda quasi asperiores rerum
+      molestias distinctio perspiciatis optio ullam, sed nobis? Laboriosam voluptatem omnis, facere ab explicabo tempora
+      harum quod accusantium nemo saepe, cumque voluptate non debitis quidem aliquam nesciunt consectetur asperiores,
+      accusamus numquam obcaecati aut molestias fugit illum? Ipsa, voluptas non ex libero nemo ab mollitia et expedita
+      dolorem aspernatur unde corporis sit ad hic optio dolorum minima esse excepturi consectetur nesciunt in. Rerum
+      adipisci facilis dignissimos iure voluptas quo aspernatur quasi optio maiores qui illo corrupti, labore
+      voluptatibus nihil aperiam similique ipsa pariatur quae dolorem sequi error deserunt praesentium repellendus
+      magni. Tempore atque cupiditate provident expedita architecto enim ipsam porro minus id debitis recusandae nostrum
+      sed, quas unde voluptates neque? Nobis qui nostrum excepturi, velit autem aut et rerum repellendus vero ullam
+      asperiores adipisci perspiciatis quidem voluptate ratione ad earum sunt, eligendi corporis aperiam dolor iusto ab.
+      Porro totam dolorum cumque cupiditate quisquam architecto excepturi! Deserunt ipsum incidunt laudantium aliquid
+      illo minus qui laboriosam in praesentium eos, ut sunt sint minima rem, illum corporis vel delectus. Id nisi quasi,
+      minima, mollitia distinctio sequi iste eveniet quo laudantium iure quae! Itaque eaque repellat sint animi
+      veritatis quidem dolore, quasi atque, nihil reprehenderit mollitia modi perspiciatis! Ut tempore accusamus
+      quisquam quos, voluptatem magnam velit, impedit quia tempora, quidem ad enim voluptate incidunt corrupti
+      consequatur ea deserunt officia aliquam quibusdam facere nam et! Id quas ea non, doloremque, eos odit vel quos hic
+      quisquam vitae quis culpa natus illo eius exercitationem laboriosam impedit similique magnam necessitatibus soluta
+      veniam, tenetur aspernatur assumenda ipsa! Ut voluptatum saepe possimus totam sed facere quibusdam tempore unde?
+      Voluptatum atque accusamus illum repellat eius ipsa facilis a molestiae perspiciatis vero beatae, sapiente nobis
+      quibusdam nulla ullam aliquid non, nam laborum fugiat sint voluptatibus et praesentium! Dignissimos quasi, quod
+      sit deserunt harum aliquid illo et consequuntur, libero similique maiores assumenda nihil molestiae odit.
+      Consequatur quaerat voluptatibus culpa id praesentium sed, ratione quibusdam modi sapiente eligendi commodi
+      aliquam nesciunt dolorum totam corrupti consectetur sit tempora veniam. Eveniet, accusantium minima, nemo officia
+      numquam autem nostrum at placeat, commodi nobis perferendis dignissimos deserunt voluptatum. Cupiditate dolores
+      quisquam dolorem nihil minima autem porro? Exercitationem qui omnis aliquam architecto, ad, doloremque voluptas
+      maxime fuga, deserunt molestias totam. Quam cum at facere similique nobis est deserunt aut quasi natus laudantium
+      enim ab assumenda qui recusandae pariatur dolore impedit eligendi beatae, mollitia culpa aperiam consequatur rem!
+      Aperiam dicta in iste nesciunt amet ut reiciendis eos dolores temporibus unde! Recusandae dolore voluptate ea ex
+      asperiores quod perferendis sapiente quos ullam possimus corrupti, pariatur odio itaque iure nihil illum amet qui
+      quaerat! Eligendi totam eos mollitia quia placeat nostrum obcaecati illum facilis? Sapiente consequatur eos
+      inventore et in nihil corporis temporibus aperiam eius sunt officia unde, accusantium ad, nostrum atque nobis
+      accusamus impedit delectus labore assumenda debitis. Pariatur nihil nisi tenetur neque provident, quas, eveniet
+      quam necessitatibus earum ducimus tempora minima!</p>
     <!-- <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
       <img class="me-3" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-white.svg" alt="" width="48"
         height="38">
