@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="author" content="OnyxDev">
   <meta name="generator" content="Astro v5.13.2">
-  <title>Offcanvas navbar template · Bootstrap v5.3</title>
+  <title>Layout</title>
 
   <script src="assets/js/color-modes.js"></script>
   <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
     html,
     body {
       overflow-x: hidden;
-      /* Prevent scroll on narrow devices */
+      /* Mencegah pengguliran pada perangkat dengan layar sempit */
     }
 
     body {
@@ -30,7 +30,7 @@
       .offcanvas-collapse {
         position: fixed;
         top: 56px;
-        /* Height of navbar */
+        /* Tinggi bilah navigasi */
         bottom: 0;
         left: 100%;
         width: 100%;
@@ -152,8 +152,8 @@
     .bd-mode-toggle .dropdown-menu .active .bi {
       display: block !important
     }
-  </style>
-  <style>
+
+    /* backToTop */
     #backToTop {
       position: fixed;
       right: 1.5rem;
@@ -206,6 +206,8 @@
       </path>
     </symbol>
   </svg>
+
+  <!-- mode-toggle -->
   <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
     <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"
       aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
@@ -259,7 +261,6 @@
     <div class="container">
 
       <!-- Nama Brand -->
-      <!-- <a class="navbar-brand" href="#">Nama Website</a> -->
       <a class="navbar-brand" href="offcanvas-navbar.html">
         <!-- <img src="assets/img/bootstrap-logo-white.svg" alt="Logo" width="30" height="24"
           class="d-inline-block align-text-top"> -->
@@ -334,8 +335,7 @@
   <main class="container-fluid p-0">
 
     <!-- Hero Section with Swiper -->
-    <section class="hero-section position-relative" data-aos="fade-up"
-      style="min-height: 100vh; margin-top: -56px; padding-top: 56px;">
+    <section class="hero-section position-relative" style="min-height: 100vh; margin-top: -56px; padding-top: 56px;">
       <div class="swiper heroSwiper" style="width: 100%; height: 100vh;">
         <div class="swiper-wrapper">
           <div class="swiper-slide d-flex align-items-center justify-content-center text-center text-white"
@@ -693,6 +693,8 @@
   </script>
 
   <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+  <!-- open menu -->
   <script class="astro-vvvwv3sm">
     (() => {
       'use strict'
@@ -702,6 +704,8 @@
       })
     })()
   </script>
+
+  <!-- aos -->
   <script src="assets/vendor/aos/aos.js"></script>
   <script>
     AOS.init({
@@ -709,6 +713,8 @@
       once: true
     });
   </script>
+
+  <!-- backToTop -->
   <script>
     (function () {
       const btn = document.getElementById('backToTop');
