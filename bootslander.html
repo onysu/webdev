@@ -29,13 +29,6 @@
 
     <!-- Template Main CSS File -->
     <link href="assets/css/bootslander.css" rel="stylesheet">
-
-    <!-- =======================================================
-  * Template Name: Bootslander - v4.9.0
-  * Template URL: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
   </head>
 
   <body>
@@ -45,9 +38,9 @@
       <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-          <h1><a href="bootslander.html"><span>Bootslander</span></a></h1>
+          <h1><a href="index.html"><span>Bootslander</span></a></h1>
           <!-- Uncomment below if you prefer to use an image logo -->
-          <!-- <a href="bootslander.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+          <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
 
         <nav id="navbar" class="navbar">
@@ -495,22 +488,80 @@
       <section id="testimonials" class="testimonials">
         <div class="container">
 
-              <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
             <div class="swiper-wrapper">
-              <template v-for="(t, idx) in testimonials" :key="idx">
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <img v-bind:src="t.img" class="testimonial-img" alt="">
-                    <h3>{{ t.name }}</h3>
-                    <h4>{{ t.role }}</h4>
-                    <p>
-                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                      {{ t.quote }}
-                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    </p>
-                  </div>
+
+              <div class="swiper-slide">
+                <div class="testimonial-item">
+                  <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                  <h3>Saul Goodman</h3>
+                  <h4>Ceo &amp; Pendiri</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
+                    Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
                 </div>
-              </template>
+              </div><!-- End testimonial item -->
+
+              <div class="swiper-slide">
+                <div class="testimonial-item">
+                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                  <h3>Sara Wilsson</h3>
+                  <h4>Perancang</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis
+                    quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
+                </div>
+              </div><!-- End testimonial item -->
+
+              <div class="swiper-slide">
+                <div class="testimonial-item">
+                  <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                  <h3>Jena Karlis</h3>
+                  <h4>Pemilik Toko</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim
+                    tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
+                </div>
+              </div><!-- End testimonial item -->
+
+              <div class="swiper-slide">
+                <div class="testimonial-item">
+                  <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                  <h3>Matt Brandon</h3>
+                  <h4>Freelancer</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit
+                    minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
+                </div>
+              </div><!-- End testimonial item -->
+
+              <div class="swiper-slide">
+                <div class="testimonial-item">
+                  <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                  <h3>John Larson</h3>
+                  <h4>Pengusaha</h4>
+                  <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim
+                    culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum
+                    quid.
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  </p>
+                </div>
+              </div><!-- End testimonial item -->
+
             </div>
             <div class="swiper-pagination"></div>
           </div>
@@ -609,21 +660,74 @@
 
           <div class="row" data-aos="fade-left">
 
-            <template v-for="(p, idx) in pricingPlans" :key="idx">
-              <div class="col-lg-3 col-md-6" :class="{ 'mt-4 mt-md-0': idx>0, 'mt-4 mt-lg-0': idx>2 }">
-                <div class="box" :class="p.featured ? 'featured' : ''" data-aos="zoom-in" v-bind:data-aos-delay="p.delay">
-                  <span v-if="p.badge" class="advanced">{{ p.badge }}</span>
-                  <h3>{{ p.title }}</h3>
-                  <h4><sup>{{ p.currency }}</sup>{{ p.price }}<span> / {{ p.period }}</span></h4>
-                  <ul>
-                    <li v-for="(item, i) in p.features" :key="i" :class="item.na ? 'na' : ''">{{ item.text }}</li>
-                  </ul>
-                  <div class="btn-wrap">
-                    <a :href="p.href || '#'" class="btn-buy">{{ p.cta || 'Beli sekarang' }}</a>
-                  </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="box" data-aos="zoom-in" data-aos-delay="100">
+                <h3>Gratis</h3>
+                <h4><sup>$</sup>0<span> / bulan</span></h4>
+                <ul>
+                  <li>Aida dere</li>
+                  <li>Nec feugiat nisl</li>
+                  <li>Nulla at volutpat dola</li>
+                  <li class="na">Pharetra massa</li>
+                  <li class="na">Massa ultricies mi</li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Beli sekarang</a>
                 </div>
               </div>
-            </template>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
+              <div class="box featured" data-aos="zoom-in" data-aos-delay="200">
+                <h3>Bisnis</h3>
+                <h4><sup>$</sup>19<span> / bulan</span></h4>
+                <ul>
+                  <li>Aida dere</li>
+                  <li>Nec feugiat nisl</li>
+                  <li>Nulla at volutpat dola</li>
+                  <li>Pharetra massa</li>
+                  <li class="na">Massa ultricies mi</li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Beli sekarang</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+              <div class="box" data-aos="zoom-in" data-aos-delay="300">
+                <h3>Pengembang</h3>
+                <h4><sup>$</sup>29<span> / bulan</span></h4>
+                <ul>
+                  <li>Aida dere</li>
+                  <li>Nec feugiat nisl</li>
+                  <li>Nulla at volutpat dola</li>
+                  <li>Pharetra massa</li>
+                  <li>Massa ultricies mi</li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Beli sekarang</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+              <div class="box" data-aos="zoom-in" data-aos-delay="400">
+                <span class="advanced">Advanced</span>
+                <h3>Ultimate</h3>
+                <h4><sup>$</sup>49<span> / bulan</span></h4>
+                <ul>
+                  <li>Aida dere</li>
+                  <li>Nec feugiat nisl</li>
+                  <li>Nulla at volutpat dola</li>
+                  <li>Pharetra massa</li>
+                  <li>Massa ultricies mi</li>
+                </ul>
+                <div class="btn-wrap">
+                  <a href="#" class="btn-buy">Beli sekarang</a>
+                </div>
+              </div>
+            </div>
 
           </div>
 
@@ -872,138 +976,6 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/bootslander.js"></script>
-    <!-- Vue (CDN) -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-
-    <script>
-      const { createApp } = Vue;
-      createApp({
-        data() {
-          return {
-            navLinks: [
-              { text: 'Beranda', href: '#hero', active: true },
-              { text: 'Tentang', href: '#about', active: false },
-              { text: 'Fitur', href: '#features', active: false },
-              { text: 'Galeri', href: '#gallery', active: false },
-              { text: 'Team', href: '#team', active: false },
-              { text: 'Harga', href: '#pricing', active: false }
-            ],
-            hero: {
-              title: 'Bangun Halaman Landing Anda Dengan',
-              highlight: 'Bootstlander',
-              subtitle: 'Kami adalah tim desainer berbakat yang membuat situs web dengan Bootstrap',
-              ctaText: 'Memulai',
-              ctaHref: '#about',
-              img: 'assets/img/hero-img.png'
-            },
-            features: [
-              { icon: 'ri-store-line', color: '#ffbb2c', title: 'Lorem Ipsum', delay: 50 },
-              { icon: 'ri-bar-chart-box-line', color: '#5578ff', title: 'Dolor Sitema', delay: 100 },
-              { icon: 'ri-calendar-todo-line', color: '#e80368', title: 'Sed perspiciatis', delay: 150 },
-              { icon: 'ri-paint-brush-line', color: '#e361ff', title: 'Magni Dolores', delay: 200 },
-              { icon: 'ri-database-2-line', color: '#47aeff', title: 'Nemo Enim', delay: 250 },
-              { icon: 'ri-gradienter-line', color: '#ffa76e', title: 'Eiusmod Tempor', delay: 300 },
-              { icon: 'ri-file-list-3-line', color: '#11dbcf', title: 'Midela Teren', delay: 350 },
-              { icon: 'ri-price-tag-2-line', color: '#4233ff', title: 'Pira Neve', delay: 400 },
-              { icon: 'ri-anchor-line', color: '#b2904f', title: 'Dirada Pack', delay: 450 },
-              { icon: 'ri-disc-line', color: '#b20969', title: 'Moton Ideal', delay: 500 },
-              { icon: 'ri-base-station-line', color: '#ff5828', title: 'Verdo Park', delay: 550 },
-              { icon: 'ri-fingerprint-line', color: '#29cc61', title: 'Flavor Nivelanda', delay: 600 }
-            ],
-            galleryItems: [
-              { src: 'assets/img/gallery/gallery-1.jpg', href: 'assets/img/gallery/gallery-1.jpg', delay: 100 },
-              { src: 'assets/img/gallery/gallery-2.jpg', href: 'assets/img/gallery/gallery-2.jpg', delay: 150 },
-              { src: 'assets/img/gallery/gallery-3.jpg', href: 'assets/img/gallery/gallery-3.jpg', delay: 200 },
-              { src: 'assets/img/gallery/gallery-4.jpg', href: 'assets/img/gallery/gallery-4.jpg', delay: 250 },
-              { src: 'assets/img/gallery/gallery-5.jpg', href: 'assets/img/gallery/gallery-5.jpg', delay: 300 },
-              { src: 'assets/img/gallery/gallery-6.jpg', href: 'assets/img/gallery/gallery-6.jpg', delay: 350 },
-              { src: 'assets/img/gallery/gallery-7.jpg', href: 'assets/img/gallery/gallery-7.jpg', delay: 400 },
-              { src: 'assets/img/gallery/gallery-8.jpg', href: 'assets/img/gallery/gallery-8.jpg', delay: 450 }
-            ],
-            teamMembers: [
-              { img: 'assets/img/team/team-1.jpg', name: 'Walter White', role: 'Direktur Eksekutif', delay: 100, social: [
-                  { icon: 'bi bi-twitter', href: '#' }, { icon: 'bi bi-facebook', href: '#' }, { icon: 'bi bi-instagram', href: '#' }, { icon: 'bi bi-linkedin', href: '#' }
-                ] },
-              { img: 'assets/img/team/team-2.jpg', name: 'Sarah Jhonson', role: 'Manajer Produk', delay: 200, social: [
-                  { icon: 'bi bi-twitter', href: '#' }, { icon: 'bi bi-facebook', href: '#' }, { icon: 'bi bi-instagram', href: '#' }, { icon: 'bi bi-linkedin', href: '#' }
-                ] },
-              { img: 'assets/img/team/team-3.jpg', name: 'William Anderson', role: 'CTO', delay: 300, social: [
-                  { icon: 'bi bi-twitter', href: '#' }, { icon: 'bi bi-facebook', href: '#' }, { icon: 'bi bi-instagram', href: '#' }, { icon: 'bi bi-linkedin', href: '#' }
-                ] },
-              { img: 'assets/img/team/team-4.jpg', name: 'Amanda Jepson', role: 'Akuntan', delay: 400, social: [
-                  { icon: 'bi bi-twitter', href: '#' }, { icon: 'bi bi-facebook', href: '#' }, { icon: 'bi bi-instagram', href: '#' }, { icon: 'bi bi-linkedin', href: '#' }
-                ] }
-            ],
-            contactInfo: {
-              address: '13 Sultan Agung, Blitar, 66133, Indonesia',
-              email: 'onydarrell@gmail.com',
-              phone: '+62 8155 5091 53'
-            },
-            testimonials: [
-              { img: 'assets/img/testimonials/testimonials-1.jpg', name: 'Saul Goodman', role: 'Ceo & Pendiri', quote: 'Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et.' },
-              { img: 'assets/img/testimonials/testimonials-2.jpg', name: 'Sara Wilsson', role: 'Perancang', quote: 'Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.' },
-              { img: 'assets/img/testimonials/testimonials-3.jpg', name: 'Jena Karlis', role: 'Pemilik Toko', quote: 'Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.' },
-              { img: 'assets/img/testimonials/testimonials-4.jpg', name: 'Matt Brandon', role: 'Freelancer', quote: 'Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.' },
-              { img: 'assets/img/testimonials/testimonials-5.jpg', name: 'John Larson', role: 'Pengusaha', quote: 'Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.' }
-            ],
-            pricingPlans: [
-              { title: 'Gratis', currency: '$', price: '0', period: 'bulan', features: [ { text: 'Aida dere' }, { text: 'Nec feugiat nisl' }, { text: 'Nulla at volutpat dola' }, { text: 'Pharetra massa', na: true }, { text: 'Massa ultricies mi', na: true } ], delay: 100 },
-              { title: 'Bisnis', currency: '$', price: '19', period: 'bulan', featured: true, features: [ { text: 'Aida dere' }, { text: 'Nec feugiat nisl' }, { text: 'Nulla at volutpat dola' }, { text: 'Pharetra massa' }, { text: 'Massa ultricies mi', na: true } ], delay: 200 },
-              { title: 'Pengembang', currency: '$', price: '29', period: 'bulan', features: [ { text: 'Aida dere' }, { text: 'Nec feugiat nisl' }, { text: 'Nulla at volutpat dola' }, { text: 'Pharetra massa' }, { text: 'Massa ultricies mi' } ], delay: 300 },
-              { title: 'Ultimate', badge: 'Advanced', currency: '$', price: '49', period: 'bulan', features: [ { text: 'Aida dere' }, { text: 'Nec feugiat nisl' }, { text: 'Nulla at volutpat dola' }, { text: 'Pharetra massa' }, { text: 'Massa ultricies mi' } ], delay: 400 }
-            ]
-          };
-        }
-      ,
-        mounted() {
-          // Refresh AOS to pick up dynamically rendered elements
-          if (window.AOS && typeof AOS.refresh === 'function') {
-            AOS.refresh();
-          }
-
-          // Re-init testimonials Swiper (destroy previous instance if exists)
-          try {
-            if (window.testimonialsSwiper && typeof window.testimonialsSwiper.destroy === 'function') {
-              window.testimonialsSwiper.destroy(true, true);
-            }
-          } catch (e) {
-            console.warn('Error destroying previous testimonialsSwiper', e);
-          }
-
-          try {
-            window.testimonialsSwiper = new Swiper('.testimonials-slider', {
-              speed: 600,
-              loop: true,
-              autoplay: {
-                delay: 5000,
-                disableOnInteraction: false
-              },
-              slidesPerView: 'auto',
-              pagination: {
-                el: '.swiper-pagination',
-                type: 'bullets',
-                clickable: true
-              }
-            });
-          } catch (e) {
-            console.warn('Error initializing testimonials Swiper', e);
-          }
-
-          // Re-init GLightbox instances for dynamic gallery/lightbox elements
-          try {
-            if (window.glightboxInstance && typeof window.glightboxInstance.destroy === 'function') {
-              window.glightboxInstance.destroy();
-            }
-          } catch (e) { /* ignore */ }
-          try {
-            window.glightboxInstance = GLightbox({ selector: '.glightbox' });
-            window.galleryLightboxInstance = GLightbox({ selector: '.gallery-lightbox' });
-          } catch (e) {
-            console.warn('Error initializing GLightbox', e);
-          }
-        }
-      }).mount('#app');
-    </script>
 
   </body>
 
