@@ -30,6 +30,14 @@
       transform-origin: bottom center;
       transform: rotate(0deg);
     }
+
+    #dial {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transform-origin: center center;
+    }
   </style>
 </head>
 
@@ -38,9 +46,15 @@
   <h2>Kompas Digital</h2>
   <button onclick="requestPermission()">Aktifkan Kompas</button>
 
+  <!-- <div id="compass">
+    <div id="needle"></div>
+  </div> -->
+
   <div id="compass">
+    <div id="dial">N E S W</div>
     <div id="needle"></div>
   </div>
+
 
   <p id="degree">0°</p>
 
@@ -76,26 +90,47 @@
     //   degreeText.innerText = Math.round(alpha) + "°";
     // }
 
+    // function handleOrientation(event) {
+    //   let heading;
+
+    //   // iOS (paling akurat)
+    //   if (event.webkitCompassHeading !== undefined) {
+    //     heading = event.webkitCompassHeading;
+    //   }
+    //   // Android (fallback)
+    //   else if (event.alpha !== null) {
+    //     heading = 360 - event.alpha;
+    //   }
+    //   else {
+    //     return;
+    //   }
+
+    //   const needle = document.getElementById("needle");
+    //   const degreeText = document.getElementById("degree");
+
+    //   needle.style.transform = `rotate(${heading}deg)`;
+    //   degreeText.innerText = Math.round(heading) + "°";
+    // }
     function handleOrientation(event) {
       let heading;
 
-      // iOS (paling akurat)
+      // iOS (akurat)
       if (event.webkitCompassHeading !== undefined) {
         heading = event.webkitCompassHeading;
       }
-      // Android (fallback)
+      // Android
       else if (event.alpha !== null) {
         heading = 360 - event.alpha;
-      }
-      else {
+      } else {
         return;
       }
 
-      const needle = document.getElementById("needle");
-      const degreeText = document.getElementById("degree");
+      // ROTASI DIAL, BUKAN JARUM
+      document.getElementById("dial").style.transform =
+        `rotate(${-heading}deg)`;
 
-      needle.style.transform = `rotate(${heading}deg)`;
-      degreeText.innerText = Math.round(heading) + "°";
+      document.getElementById("degree").innerText =
+        Math.round(heading) + "°";
     }
   </script>
 </body>
