@@ -23,11 +23,15 @@
       margin: 20px auto;
     }
 
-    .dial {
+    /* .dial {
       position: absolute;
       width: 100%;
       height: 100%;
       transform-origin: center;
+    } */
+
+    .dial {
+      transition: transform 0.15s linear;
     }
 
     .dial span {
@@ -60,7 +64,7 @@
       transform: translateY(-50%);
     }
 
-    .needle {
+    /* .needle {
       width: 4px;
       height: 110px;
       background: red;
@@ -69,11 +73,53 @@
       left: 50%;
       transform: translateX(-50%);
       transform-origin: bottom;
-    }
+    } */
 
     .info {
       margin-top: 10px;
       font-size: 18px;
+    }
+
+    .needle-gmap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    /* Ujung Utara (merah) */
+    .needle-gmap .north {
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 60px solid #d93025;
+      /* merah Google */
+    }
+
+    /* Ujung Selatan (putih) */
+    .needle-gmap .south {
+      width: 0;
+      height: 0;
+      margin-top: 2px;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 40px solid #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .needle-gmap::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #333;
+      border-radius: 50%;
+      top: -5px;
+      left: -5px;
     }
   </style>
 </head>
@@ -97,7 +143,13 @@
         <span class="w">W</span>
       </div>
 
-      <div class="needle"></div>
+      <!-- <div class="needle"></div> -->
+
+      <div class="needle-gmap">
+        <div class="north"></div>
+        <div class="south"></div>
+      </div>
+
     </div>
 
     <div class="info">
