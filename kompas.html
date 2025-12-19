@@ -65,15 +65,37 @@
       }
     }
 
+    // function handleOrientation(event) {
+    //   let alpha = event.alpha;
+    //   if (alpha === null) return;
+
+    //   const needle = document.getElementById("needle");
+    //   const degreeText = document.getElementById("degree");
+
+    //   needle.style.transform = `rotate(${360 - alpha}deg)`;
+    //   degreeText.innerText = Math.round(alpha) + "°";
+    // }
+
     function handleOrientation(event) {
-      let alpha = event.alpha;
-      if (alpha === null) return;
+      let heading;
+
+      // iOS (paling akurat)
+      if (event.webkitCompassHeading !== undefined) {
+        heading = event.webkitCompassHeading;
+      }
+      // Android (fallback)
+      else if (event.alpha !== null) {
+        heading = 360 - event.alpha;
+      }
+      else {
+        return;
+      }
 
       const needle = document.getElementById("needle");
       const degreeText = document.getElementById("degree");
 
-      needle.style.transform = `rotate(${360 - alpha}deg)`;
-      degreeText.innerText = Math.round(alpha) + "°";
+      needle.style.transform = `rotate(${heading}deg)`;
+      degreeText.innerText = Math.round(heading) + "°";
     }
   </script>
 </body>
