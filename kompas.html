@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Kompas HTML</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #compass {
+      width: 200px;
+      height: 200px;
+      border: 5px solid #333;
+      border-radius: 50%;
+      position: relative;
+      margin: auto;
+    }
+
+    #needle {
+      width: 4px;
+      height: 90px;
+      background: red;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform-origin: bottom center;
+      transform: rotate(0deg);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Kompas Digital</h2>
+  <button onclick="requestPermission()">Aktifkan Kompas</button>
+
+  <div id="compass">
+    <div id="needle"></div>
+  </div>
+
+  <p id="degree">0°</p>
+
+  <!-- <script src="compass.js"></script> -->
+  <script>
+    function requestPermission() {
+      if (
+        typeof DeviceOrientationEvent !== "undefined" &&
+        typeof DeviceOrientationEvent.requestPermission === "function"
+      ) {
+        // iOS
+        DeviceOrientationEvent.requestPermission()
+          .then(response => {
+            if (response === "granted") {
+              window.addEventListener("deviceorientation", handleOrientation);
+            }
+          })
+          .catch(console.error);
+      } else {
+        // Android
+        window.addEventListener("deviceorientation", handleOrientation);
+      }
+    }
+
+    function handleOrientation(event) {
+      let alpha = event.alpha;
+      if (alpha === null) return;
+
+      const needle = document.getElementById("needle");
+      const degreeText = document.getElementById("degree");
+
+      needle.style.transform = `rotate(${360 - alpha}deg)`;
+      degreeText.innerText = Math.round(alpha) + "°";
+    }
+  </script>
+</body>
+
+</html>
