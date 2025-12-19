@@ -103,50 +103,44 @@
   </div>
 
   <script>
+    let compassActive = false;
+
     document.addEventListener("DOMContentLoaded", () => {
-      // Android & browser yang mengizinkan
+      // iOS → wajib interaksi user
       if (
-        typeof DeviceOrientationEvent === "undefined" ||
+        typeof DeviceOrientationEvent !== "undefined" &&
         typeof DeviceOrientationEvent.requestPermission === "function"
       ) {
-        // iOS → butuh tombol
         document.getElementById("btnActivate").style.display = "inline-block";
-      } else {
-        // Android → langsung aktif
-        window.addEventListener("deviceorientation", handleOrientation);
+      }
+      // Android → langsung aktif
+      else if (typeof DeviceOrientationEvent !== "undefined") {
+        startCompass();
       }
     });
+
+    function startCompass() {
+      if (compassActive) return;
+      compassActive = true;
+
+      window.addEventListener("deviceorientation", handleOrientation, true);
+    }
 
     function activateCompass() {
       DeviceOrientationEvent.requestPermission()
         .then(res => {
           if (res === "granted") {
-            window.addEventListener("deviceorientation", handleOrientation);
+            startCompass();
             document.getElementById("btnActivate").style.display = "none";
           }
-        });
-    }
-
-    function requestPermission() {
-      if (
-        typeof DeviceOrientationEvent !== "undefined" &&
-        typeof DeviceOrientationEvent.requestPermission === "function"
-      ) {
-        DeviceOrientationEvent.requestPermission()
-          .then(res => {
-            if (res === "granted") {
-              window.addEventListener("deviceorientation", handleOrientation);
-            }
-          });
-      } else {
-        window.addEventListener("deviceorientation", handleOrientation);
-      }
+        })
+        .catch(console.error);
     }
 
     function handleOrientation(event) {
       let heading;
 
-      // iOS (paling akurat)
+      // iOS
       if (event.webkitCompassHeading !== undefined) {
         heading = event.webkitCompassHeading;
       }
@@ -182,8 +176,8 @@
       ];
       return dirs[Math.round(deg / 45) % 8];
     }
-
   </script>
+
 </body>
 
 </html>
