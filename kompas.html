@@ -79,7 +79,12 @@
 <body>
 
   <h2>Kompas Digital</h2>
-  <button onclick="requestPermission()">Aktifkan Kompas</button>
+
+  <button id="btnActivate" onclick="activateCompass()" style="display:none">
+    Aktifkan Kompas
+  </button>
+
+  <!-- <button onclick="requestPermission()">Aktifkan Kompas</button> -->
 
   <div class="compass">
     <div class="dial" id="dial">
@@ -98,6 +103,30 @@
   </div>
 
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Android & browser yang mengizinkan
+      if (
+        typeof DeviceOrientationEvent === "undefined" ||
+        typeof DeviceOrientationEvent.requestPermission === "function"
+      ) {
+        // iOS → butuh tombol
+        document.getElementById("btnActivate").style.display = "inline-block";
+      } else {
+        // Android → langsung aktif
+        window.addEventListener("deviceorientation", handleOrientation);
+      }
+    });
+
+    function activateCompass() {
+      DeviceOrientationEvent.requestPermission()
+        .then(res => {
+          if (res === "granted") {
+            window.addEventListener("deviceorientation", handleOrientation);
+            document.getElementById("btnActivate").style.display = "none";
+          }
+        });
+    }
+
     function requestPermission() {
       if (
         typeof DeviceOrientationEvent !== "undefined" &&
