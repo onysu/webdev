@@ -191,40 +191,52 @@
     }
 
     .needle-gmap {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-}
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
 
-/* Ujung Utara (merah) */
-.needle-gmap .north {
-  position: absolute;
-  bottom: 0;               /* KUNCI UTAMA */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-bottom: 55px solid #d93025;
-}
+    .needle-gmap::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #333;
+      border-radius: 50%;
+      top: -4px;
+      left: -4px;
+    }
 
-/* Ujung Selatan (putih) */
-.needle-gmap .south {
-  position: absolute;
-  top: 0;                  /* KUNCI UTAMA */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-top: 35px solid #ffffff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
+    /* Ujung Utara (merah) */
+    .needle-gmap .north {
+      position: absolute;
+      bottom: 0;
+      /* KUNCI UTAMA */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      border-bottom: 55px solid #d93025;
+    }
 
+    /* Ujung Selatan (putih) */
+    .needle-gmap .south {
+      position: absolute;
+      top: 0;
+      /* KUNCI UTAMA */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      border-top: 35px solid #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
   </style>
 </head>
 
@@ -357,6 +369,82 @@
   </main>
 
   <script src="https://getbootstrap.com/docs/5.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let compassActive = false;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // iOS → wajib interaksi user
+      if (
+        typeof DeviceOrientationEvent !== "undefined" &&
+        typeof DeviceOrientationEvent.requestPermission === "function"
+      ) {
+        document.getElementById("btnActivate").style.display = "inline-block";
+      }
+      // Android → langsung aktif
+      else if (typeof DeviceOrientationEvent !== "undefined") {
+        startCompass();
+      }
+    });
+
+    function startCompass() {
+      if (compassActive) return;
+      compassActive = true;
+
+      window.addEventListener("deviceorientation", handleOrientation, true);
+    }
+
+    function activateCompass() {
+      DeviceOrientationEvent.requestPermission()
+        .then(res => {
+          if (res === "granted") {
+            startCompass();
+            document.getElementById("btnActivate").style.display = "none";
+          }
+        })
+        .catch(console.error);
+    }
+
+    function handleOrientation(event) {
+      let heading;
+
+      // iOS
+      if (event.webkitCompassHeading !== undefined) {
+        heading = event.webkitCompassHeading;
+      }
+      // Android
+      else if (event.alpha !== null) {
+        heading = 360 - event.alpha;
+      } else {
+        return;
+      }
+
+      heading = Math.round(heading);
+
+      document.getElementById("dial").style.transform =
+        `rotate(${-heading}deg)`;
+
+      document.getElementById("degree").innerText =
+        heading + "°";
+
+      document.getElementById("direction").innerText =
+        getDirection(heading);
+    }
+
+    function getDirection(deg) {
+      const dirs = [
+        "Utara",
+        "Timur Laut",
+        "Timur",
+        "Tenggara",
+        "Selatan",
+        "Barat Daya",
+        "Barat",
+        "Barat Laut"
+      ];
+      return dirs[Math.round(deg / 45) % 8];
+    }
+  </script>
+  
 </body>
 
 </html>
