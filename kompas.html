@@ -3,40 +3,75 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Kompas HTML</title>
+  <title>Kompas Digital</title>
+
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 50px;
+      margin-top: 40px;
     }
 
-    #compass {
-      width: 200px;
-      height: 200px;
-      border: 5px solid #333;
+    .compass {
+      width: 260px;
+      height: 260px;
+      border: 6px solid #333;
       border-radius: 50%;
       position: relative;
-      margin: auto;
+      margin: 20px auto;
     }
 
-    #needle {
-      width: 4px;
-      height: 90px;
-      background: red;
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform-origin: bottom center;
-      transform: rotate(0deg);
-    }
-
-    #dial {
+    .dial {
       position: absolute;
       width: 100%;
       height: 100%;
-      text-align: center;
-      transform-origin: center center;
+      transform-origin: center;
+    }
+
+    .dial span {
+      position: absolute;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .n {
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .e {
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .s {
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .w {
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .needle {
+      width: 4px;
+      height: 110px;
+      background: red;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      transform-origin: bottom;
+    }
+
+    .info {
+      margin-top: 10px;
+      font-size: 18px;
     }
   </style>
 </head>
@@ -46,75 +81,43 @@
   <h2>Kompas Digital</h2>
   <button onclick="requestPermission()">Aktifkan Kompas</button>
 
-  <!-- <div id="compass">
-    <div id="needle"></div>
-  </div> -->
+  <div class="compass">
+    <div class="dial" id="dial">
+      <span class="n">N</span>
+      <span class="e">E</span>
+      <span class="s">S</span>
+      <span class="w">W</span>
+    </div>
 
-  <div id="compass">
-    <div id="dial">N E S W</div>
-    <div id="needle"></div>
+    <div class="needle"></div>
   </div>
 
+  <div class="info">
+    <div id="degree">0°</div>
+    <div id="direction">Utara</div>
+  </div>
 
-  <p id="degree">0°</p>
-
-  <!-- <script src="compass.js"></script> -->
   <script>
     function requestPermission() {
       if (
         typeof DeviceOrientationEvent !== "undefined" &&
         typeof DeviceOrientationEvent.requestPermission === "function"
       ) {
-        // iOS
         DeviceOrientationEvent.requestPermission()
-          .then(response => {
-            if (response === "granted") {
+          .then(res => {
+            if (res === "granted") {
               window.addEventListener("deviceorientation", handleOrientation);
             }
-          })
-          .catch(console.error);
+          });
       } else {
-        // Android
         window.addEventListener("deviceorientation", handleOrientation);
       }
     }
 
-    // function handleOrientation(event) {
-    //   let alpha = event.alpha;
-    //   if (alpha === null) return;
-
-    //   const needle = document.getElementById("needle");
-    //   const degreeText = document.getElementById("degree");
-
-    //   needle.style.transform = `rotate(${360 - alpha}deg)`;
-    //   degreeText.innerText = Math.round(alpha) + "°";
-    // }
-
-    // function handleOrientation(event) {
-    //   let heading;
-
-    //   // iOS (paling akurat)
-    //   if (event.webkitCompassHeading !== undefined) {
-    //     heading = event.webkitCompassHeading;
-    //   }
-    //   // Android (fallback)
-    //   else if (event.alpha !== null) {
-    //     heading = 360 - event.alpha;
-    //   }
-    //   else {
-    //     return;
-    //   }
-
-    //   const needle = document.getElementById("needle");
-    //   const degreeText = document.getElementById("degree");
-
-    //   needle.style.transform = `rotate(${heading}deg)`;
-    //   degreeText.innerText = Math.round(heading) + "°";
-    // }
     function handleOrientation(event) {
       let heading;
 
-      // iOS (akurat)
+      // iOS (paling akurat)
       if (event.webkitCompassHeading !== undefined) {
         heading = event.webkitCompassHeading;
       }
@@ -125,13 +128,32 @@
         return;
       }
 
-      // ROTASI DIAL, BUKAN JARUM
+      heading = Math.round(heading);
+
       document.getElementById("dial").style.transform =
         `rotate(${-heading}deg)`;
 
       document.getElementById("degree").innerText =
-        Math.round(heading) + "°";
+        heading + "°";
+
+      document.getElementById("direction").innerText =
+        getDirection(heading);
     }
+
+    function getDirection(deg) {
+      const dirs = [
+        "Utara",
+        "Timur Laut",
+        "Timur",
+        "Tenggara",
+        "Selatan",
+        "Barat Daya",
+        "Barat",
+        "Barat Laut"
+      ];
+      return dirs[Math.round(deg / 45) % 8];
+    }
+
   </script>
 </body>
 
