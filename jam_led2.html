@@ -170,15 +170,16 @@
 
     .controls {
       margin-top: 14px;
+      font-family: 'Segoe UI', Arial, sans-serif;
     }
 
-    button {
+    /* button {
       background: transparent;
       border: 1px solid #00ff7f;
       padding: 4px 10px;
       margin: 0 3px;
       cursor: pointer;
-    }
+    } */
   </style>
 </head>
 
@@ -264,10 +265,10 @@
       <div class="hijri-line" id="hijriLine"></div>
 
       <div class="controls">
-        <button onclick="setZone('WIB')">WIB</button>
-        <button onclick="setZone('WITA')">WITA</button>
-        <button onclick="setZone('WIT')">WIT</button>
-        <button onclick="toggleFormat()">AM / PM</button>
+        <button class="btn btn-success btn-sm" onclick="setZone('WIB')">WIB</button>
+        <button class="btn btn-success btn-sm" onclick="setZone('WITA')">WITA</button>
+        <button class="btn btn-success btn-sm" onclick="setZone('WIT')">WIT</button>
+        <button class="btn btn-success btn-sm" onclick="toggleFormat()">AM / PM</button>
       </div>
     </div>
 
@@ -333,7 +334,7 @@
       });
 
       document.getElementById('hijriLine').textContent =
-        `${hijri} H | ${zone}`;
+        `${hijri} | ${zone}`;
     }
 
     function setZone(z) {
