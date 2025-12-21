@@ -212,6 +212,28 @@
       transform: translate(-50%, -50%);
       z-index: 10;
     }
+
+    .time-info {
+      margin-top: 18px;
+      text-align: center;
+      color: #f5f5f5;
+      font-family: 'DS-Digital', monospace;
+    }
+
+    .digital-time {
+      font-size: clamp(24px, 5vw, 32px);
+      letter-spacing: 2px;
+      color: #00ffcc;
+    }
+
+    .date-line {
+      font-size: clamp(14px, 3.5vw, 16px);
+      margin-top: 4px;
+    }
+
+    .date-line.jawa {
+      color: #ffd27d;
+    }
   </style>
 </head>
 
@@ -269,6 +291,7 @@
   </div>
 
   <main class="form-signin w-100 m-auto text-center">
+
     <div class="clock-wrapper">
       <div class="wall-clock">
         <div class="clock-face">
@@ -280,6 +303,13 @@
         </div>
       </div>
     </div>
+
+    <div class="time-info">
+      <div id="digital-time" class="digital-time"></div>
+      <div id="date-masehi" class="date-line"></div>
+      <div id="date-jawa" class="date-line jawa"></div>
+    </div>
+
   </main>
 
   <script src="assets/js/bootstrap.bundle.min.js"></script>
@@ -362,6 +392,68 @@
         timeStyle: 'medium'
       }).format(new Date())
     );
+  </script>
+
+  <script>
+    /* =========================
+       PASARAN JAWA
+    ========================= */
+    const pasaran = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
+
+    // Referensi: 1 Januari 1970 = Kamis Legi
+    const pasaranRef = new Date('1970-01-01');
+
+    function getPasaran(date) {
+      const diffDays = Math.floor((date - pasaranRef) / 86400000);
+      return pasaran[diffDays % 5];
+    }
+
+    /* =========================
+       UPDATE DIGITAL & TANGGAL
+    ========================= */
+    function updateDateInfo() {
+      const now = new Date();
+
+      // Jam
+      let h = now.getHours();
+      const m = now.getMinutes();
+      const s = now.getSeconds();
+
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+
+      const hh = String(h).padStart(2, '0');
+      const mm = String(m).padStart(2, '0');
+      const ss = String(s).padStart(2, '0');
+
+      document.getElementById('digital-time').textContent =
+        `${hh}:${mm}:${ss} ${ampm}`;
+
+      // Tanggal Masehi
+      const masehi = new Intl.DateTimeFormat('id-ID', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(now);
+
+      // Hari Jawa + Pasaran
+      const hariJawa = new Intl.DateTimeFormat('id-ID', {
+        weekday: 'long'
+      }).format(now);
+
+      const weton = getPasaran(now);
+
+      document.getElementById('date-masehi').textContent = masehi;
+      document.getElementById('date-jawa').textContent =
+        `${hariJawa} ${weton}`;
+    }
+
+    /* =========================
+       LOOP
+    ========================= */
+    setInterval(updateDateInfo, 1000);
+    updateDateInfo();
   </script>
 
 </body>
