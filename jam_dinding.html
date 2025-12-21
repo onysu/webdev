@@ -216,32 +216,16 @@
     .time-info {
       margin-top: 18px;
       text-align: center;
-      color: #f5f5f5;
-      font-family: 'DS-Digital', monospace;
+      font-family: 'Segoe UI', Arial, sans-serif;
     }
 
     .digital-time {
       font-size: clamp(24px, 5vw, 32px);
       letter-spacing: 2px;
-      color: #00ffcc;
     }
 
     .date-line {
       font-size: clamp(14px, 3.5vw, 16px);
-      margin-top: 4px;
-    }
-
-    .date-line.jawa {
-      color: #ffd27d;
-    }
-
-    /* 
-    HIJRIYAH
-    */
-    .date-line.hijri {
-      color: #9fffd0;
-      font-size: clamp(14px, 3.5vw, 16px);
-      opacity: 0.9;
     }
 
     /* Animasi pergantian hari */
@@ -333,15 +317,9 @@
     <div class="time-info">
       <div id="digital-time" class="digital-time"></div>
       <div id="date-masehi" class="date-line"></div>
-      <div id="date-jawa" class="date-line jawa"></div>
+      <div id="date-jawa"></div>
       <div id="date-hijri" class="date-line hijri"></div>
     </div>
-
-    <!-- <div class="time-info">
-      <div id="digital-time" class="digital-time"></div>
-      <div id="date-masehi" class="date-line"></div>
-      <div id="date-jawa" class="date-line jawa"></div>
-    </div> -->
 
   </main>
 
