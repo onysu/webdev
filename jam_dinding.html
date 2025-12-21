@@ -326,55 +326,7 @@
 
   </main>
 
-  <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-  <!-- <script>
-    function getWIBDate() {
-      const parts = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'Asia/Jakarta',
-        hour12: false,
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
-      }).formatToParts(new Date());
-
-      const get = type => Number(parts.find(p => p.type === type).value);
-
-      const now = new Date();
-      now.setHours(get('hour'));
-      now.setMinutes(get('minute'));
-      now.setSeconds(get('second'));
-      now.setMilliseconds(new Date().getMilliseconds());
-
-      return now;
-    }
-
-    function updateWallClock() {
-      const now = getWIBDate();
-
-      const ms = now.getMilliseconds();
-      const seconds = now.getSeconds() + ms / 1000;
-      const minutes = now.getMinutes() + seconds / 60;
-      const hours = (now.getHours() % 12) + minutes / 60;
-
-      const secondDeg = seconds * 6 - 90;
-      const minuteDeg = minutes * 6 - 90;
-      const hourDeg = hours * 30 - 90;
-
-      document.getElementById('second').style.transform =
-        `rotate(${secondDeg}deg)`;
-
-      document.getElementById('minute').style.transform =
-        `rotate(${minuteDeg}deg)`;
-
-      document.getElementById('hour').style.transform =
-        `rotate(${hourDeg}deg)`;
-
-      requestAnimationFrame(updateWallClock);
-    }
-
-    requestAnimationFrame(updateWallClock);
-  </script> -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>  
 
   <script>
     function updateWallClock() {
