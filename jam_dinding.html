@@ -234,6 +234,32 @@
     .date-line.jawa {
       color: #ffd27d;
     }
+
+    /* 
+    HIJRIYAH
+    */
+    .date-line.hijri {
+      color: #9fffd0;
+      font-size: clamp(14px, 3.5vw, 16px);
+      opacity: 0.9;
+    }
+
+    /* Animasi pergantian hari */
+    .fade-day {
+      animation: fadeDay 1.2s ease-in-out;
+    }
+
+    @keyframes fadeDay {
+      0% {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 
@@ -308,7 +334,14 @@
       <div id="digital-time" class="digital-time"></div>
       <div id="date-masehi" class="date-line"></div>
       <div id="date-jawa" class="date-line jawa"></div>
+      <div id="date-hijri" class="date-line hijri"></div>
     </div>
+
+    <!-- <div class="time-info">
+      <div id="digital-time" class="digital-time"></div>
+      <div id="date-masehi" class="date-line"></div>
+      <div id="date-jawa" class="date-line jawa"></div>
+    </div> -->
 
   </main>
 
@@ -399,9 +432,7 @@
        PASARAN JAWA
     ========================= */
     const pasaran = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
-
-    // Referensi: 1 Januari 1970 = Kamis Legi
-    const pasaranRef = new Date('1970-01-01');
+    const pasaranRef = new Date('1970-01-01'); // Kamis Legi
 
     function getPasaran(date) {
       const diffDays = Math.floor((date - pasaranRef) / 86400000);
@@ -409,44 +440,85 @@
     }
 
     /* =========================
-       UPDATE DIGITAL & TANGGAL
+       ZONA WAKTU INDONESIA
     ========================= */
+    function getZonaWaktu(date) {
+      const offset = -date.getTimezoneOffset() / 60;
+      if (offset === 7) return 'WIB';
+      if (offset === 8) return 'WITA';
+      if (offset === 9) return 'WIT';
+      return 'LOCAL';
+    }
+
+    /* =========================
+       MAGHRIB BASED DAY CHANGE
+       (default 18:00)
+    ========================= */
+    function getIslamicDate(baseDate) {
+      const date = new Date(baseDate);
+      if (date.getHours() >= 18) {
+        date.setDate(date.getDate() + 1);
+      }
+      return date;
+    }
+
+    /* =========================
+       UPDATE SEMUA INFO WAKTU
+    ========================= */
+    let lastHijri = '';
+
     function updateDateInfo() {
       const now = new Date();
+      const islamicDate = getIslamicDate(now);
 
-      // Jam
+      /* JAM DIGITAL */
       let h = now.getHours();
       const m = now.getMinutes();
       const s = now.getSeconds();
-
       const ampm = h >= 12 ? 'PM' : 'AM';
       h = h % 12 || 12;
 
-      const hh = String(h).padStart(2, '0');
-      const mm = String(m).padStart(2, '0');
-      const ss = String(s).padStart(2, '0');
-
       document.getElementById('digital-time').textContent =
-        `${hh}:${mm}:${ss} ${ampm}`;
+        `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')} ${ampm}`;
 
-      // Tanggal Masehi
-      const masehi = new Intl.DateTimeFormat('id-ID', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      }).format(now);
+      /* TANGGAL MASEHI */
+      document.getElementById('date-masehi').textContent =
+        new Intl.DateTimeFormat('id-ID', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        }).format(now);
 
-      // Hari Jawa + Pasaran
+      /* JAWA + WETON */
       const hariJawa = new Intl.DateTimeFormat('id-ID', {
         weekday: 'long'
       }).format(now);
 
-      const weton = getPasaran(now);
-
-      document.getElementById('date-masehi').textContent = masehi;
       document.getElementById('date-jawa').textContent =
-        `${hariJawa} ${weton}`;
+        `${hariJawa} ${getPasaran(now)}`;
+
+      /* HIJRIYAH */
+      const hijri = new Intl.DateTimeFormat('id-ID-u-ca-islamic', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(islamicDate);
+
+      const zona = getZonaWaktu(now);
+      const hijriText = `${hijri} | ${zona}`;
+
+      const hijriEl = document.getElementById('date-hijri');
+
+      // animasi hanya saat hari Hijriyah berubah
+      if (hijriText !== lastHijri) {
+        hijriEl.classList.remove('fade-day');
+        void hijriEl.offsetWidth;
+        hijriEl.classList.add('fade-day');
+        lastHijri = hijriText;
+      }
+
+      hijriEl.textContent = hijriText;
     }
 
     /* =========================
