@@ -155,37 +155,29 @@
       letter-spacing: 0.12em;
     }
 
-    .year {
-      font-size: clamp(18px, 4vw, 28px);
-      margin-top: -8px;
-      opacity: 0.8;
+    .ampm {
+      font-size: 0.35em;
+      vertical-align: super;
+      margin-left: 6px;
     }
 
-    .date,
-    .hijri {
+    .date-line,
+    .hijri-line {
       font-family: Arial, sans-serif;
-      font-size: 16px;
-      margin-top: 4px;
+      font-size: clamp(14px, 3vw, 18px);
+      margin-top: 6px;
     }
 
     .controls {
-      margin-top: 12px;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      margin-top: 14px;
     }
 
     button {
       background: transparent;
       border: 1px solid #00ff7f;
       padding: 4px 10px;
-      margin: 0 2px;
+      margin: 0 3px;
       cursor: pointer;
-    }
-
-    .ampm {
-      font-size: clamp(14px, 3vw, 20px);
-      margin-left: 8px;
-      vertical-align: super;
-      opacity: 0.8;
     }
   </style>
 </head>
@@ -267,9 +259,9 @@
 
     <div class="clock-container">
       <div class="time" id="clock"></div>
-      <div class="year" id="year"></div>
-      <div class="date" id="date"></div>
-      <div class="hijri" id="hijri"></div>
+
+      <div class="date-line" id="dateLine"></div>
+      <div class="hijri-line" id="hijriLine"></div>
 
       <div class="controls">
         <button onclick="setZone('WIB')">WIB</button>
@@ -277,14 +269,88 @@
         <button onclick="setZone('WIT')">WIT</button>
         <button onclick="toggleFormat()">AM / PM</button>
       </div>
-
     </div>
+
 
   </main>
 
   <script src="assets/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    let zone = 'WIB';
+    let is12Hour = false;
+
+    const zoneOffset = { WIB: 7, WITA: 8, WIT: 9 };
+    const pasaran = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
+    const hariJawa = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+    function getPasaran(date) {
+      const anchor = new Date(1970, 0, 1); // Kamis Legi
+      const diff = Math.floor((date - anchor) / 86400000);
+      return pasaran[(diff % 5 + 5) % 5];
+    }
+
+    function getWeton(date) {
+      return `${hariJawa[date.getDay()]} ${getPasaran(date)}`;
+    }
+
+    function formatTime(date) {
+      let h = date.getHours();
+      let m = date.getMinutes().toString().padStart(2, '0');
+      let s = date.getSeconds().toString().padStart(2, '0');
+      let ampm = '';
+
+      if (is12Hour) {
+        ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+      }
+
+      h = h.toString().padStart(2, '0');
+      return { text: `${h}:${m}:${s}`, ampm };
+    }
+
+    function updateClock() {
+      const nowUTC = new Date(new Date().toUTCString());
+      const local = new Date(nowUTC.getTime() + zoneOffset[zone] * 3600000);
+
+      const t = formatTime(local);
+      document.getElementById('clock').innerHTML =
+        t.text + (is12Hour ? `<span class="ampm">${t.ampm}</span>` : '');
+
+      const tanggal = local.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+
+      document.getElementById('dateLine').textContent =
+        `${tanggal} | ${getWeton(local)}`;
+
+      const hijri = local.toLocaleDateString('id-ID-u-ca-islamic', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+
+      document.getElementById('hijriLine').textContent =
+        `${hijri} H | ${zone}`;
+    }
+
+    function setZone(z) {
+      zone = z;
+      updateClock();
+    }
+
+    function toggleFormat() {
+      is12Hour = !is12Hour;
+      updateClock();
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+
+  <!-- <script>
     let zone = 'WIB';
     let is12Hour = false;
 
@@ -350,7 +416,7 @@
       });
 
       document.getElementById('hijri').textContent =
-        `${hijri} H | ${zone}`;
+        `${hijri} | ${zone}`;
     }
 
     function setZone(z) {
@@ -365,7 +431,7 @@
 
     updateClock();
     setInterval(updateClock, 1000);
-  </script>
+  </script> -->
 
   <!-- <script>
     let zone = 'WIB';
