@@ -8,7 +8,7 @@
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Astro v5.13.2">
   <title>Jam & Tanggal AM/PM</title>
-  
+
   <script src="assets/js/color-modes.js"></script>
   <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 
@@ -102,10 +102,41 @@
       display: block !important
     }
   </style>
-  <!-- CSS Jam & Tanggal -->
+  <!-- CSS Jam & Tanggal AM/PM -->
   <style>
+    @font-face {
+      font-family: 'DS-Digital';
+      src: url('assets/fonts/DS-DIGI.TTF') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'DS-Digital';
+      src: url('assets/fonts/DS-DIGIB.TTF') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'DS-Digital';
+      src: url('assets/fonts/DS-DIGII.TTF') format('truetype');
+      font-weight: normal;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'DS-Digital';
+      src: url('assets/fonts/DS-DIGIT.TTF') format('truetype');
+      font-weight: bold;
+      font-style: italic;
+      font-display: swap;
+    }
+
     .digital-clock {
-      /* font-family: 'Segoe UI', Arial, sans-serif; */
       font-family: 'DS-Digital', monospace;
       text-align: center;
       padding: 20px;
@@ -117,6 +148,7 @@
     }
 
     .date {
+      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: 20px;
       /* margin-top: 5px; */
     }
@@ -203,15 +235,15 @@
     </ul>
   </div>
 
-  <main class="w-100 m-auto">
+  <main class="container w-100 m-auto">
 
     <div class="digital-clock">
-    <div class="time" id="clock">00:00:00</div>
-    <div class="date py-3" id="date"></div>
-    <button class="btn btn-bd-primary btn-sm" id="toggleFormat">
-      Ubah ke Format 12 Jam (AMP / PM)
-    </button>
-  </div>
+      <div class="time" id="clock">00:00:00</div>
+      <div class="date mb-3" id="date"></div>
+      <button class="btn btn-bd-primary btn-sm" id="toggleFormat">
+        Ubah ke Format 12 Jam (AMP / PM)
+      </button>
+    </div>
 
   </main>
 
