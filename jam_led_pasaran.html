@@ -272,7 +272,6 @@
       </div>
     </div>
 
-
   </main>
 
   <script src="assets/js/bootstrap.bundle.min.js"></script>
@@ -286,7 +285,7 @@
     const hariJawa = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
     function getPasaran(date) {
-      const anchor = new Date(1970, 0, 1); // Kamis Legi
+      const anchor = new Date(Date.UTC(1970, 0, 1)); // Kamis Legi (UTC)
       const diff = Math.floor((date - anchor) / 86400000);
       return pasaran[(diff % 5 + 5) % 5];
     }
@@ -311,8 +310,12 @@
     }
 
     function updateClock() {
-      const nowUTC = new Date(new Date().toUTCString());
-      const local = new Date(nowUTC.getTime() + zoneOffset[zone] * 3600000);
+      // UTC murni (TIDAK tergantung timezone OS)
+      const now = Date.now();
+      const utc = now + new Date().getTimezoneOffset() * 60000;
+
+      // Zona Indonesia
+      const local = new Date(utc + zoneOffset[zone] * 3600000);
 
       const t = formatTime(local);
       document.getElementById('clock').innerHTML =
@@ -334,7 +337,7 @@
       });
 
       document.getElementById('hijriLine').textContent =
-        `${hijri} | ${zone}`;
+        `${hijri} H | ${zone}`;
     }
 
     function setZone(z) {
@@ -350,225 +353,7 @@
     updateClock();
     setInterval(updateClock, 1000);
   </script>
-
-  <!-- <script>
-    let zone = 'WIB';
-    let is12Hour = false;
-
-    const zoneOffset = {
-      WIB: 7,
-      WITA: 8,
-      WIT: 9
-    };
-
-    const pasaran = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
-    const hariJawa = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-
-    function getPasaran(date) {
-      const anchor = new Date(1970, 0, 1); // Kamis Legi
-      const diff = Math.floor((date - anchor) / 86400000);
-      return pasaran[(diff % 5 + 5) % 5];
-    }
-
-    function getWeton(date) {
-      return `${hariJawa[date.getDay()]} ${getPasaran(date)}`;
-    }
-
-    function formatTime(date) {
-      let hours = date.getHours();
-      let minutes = date.getMinutes().toString().padStart(2, '0');
-      let seconds = date.getSeconds().toString().padStart(2, '0');
-      let ampm = '';
-
-      if (is12Hour) {
-        ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12 || 12;
-      }
-
-      hours = hours.toString().padStart(2, '0');
-
-      return { time: `${hours}:${minutes}:${seconds}`, ampm };
-    }
-
-    function updateClock() {
-      const nowUTC = new Date(new Date().toUTCString());
-      const local = new Date(nowUTC.getTime() + zoneOffset[zone] * 3600000);
-
-      const t = formatTime(local);
-
-      document.getElementById('clock').innerHTML =
-        t.time + (is12Hour ? `<span class="ampm">${t.ampm}</span>` : '');
-
-      // document.getElementById('year').textContent = local.getFullYear();
-
-      const tanggalMasehi = local.toLocaleDateString('id-ID', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-
-      document.getElementById('date').textContent =
-        `${getWeton(local)} | ${tanggalMasehi}`;
-
-      const hijri = local.toLocaleDateString('id-ID-u-ca-islamic', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-
-      document.getElementById('hijri').textContent =
-        `${hijri} | ${zone}`;
-    }
-
-    function setZone(z) {
-      zone = z;
-      updateClock();
-    }
-
-    function toggleFormat() {
-      is12Hour = !is12Hour;
-      updateClock();
-    }
-
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script> -->
-
-  <!-- <script>
-    let zone = 'WIB';
-
-    const zoneOffset = {
-      WIB: 7,
-      WITA: 8,
-      WIT: 9
-    };
-
-    const pasaran = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
-    const hariJawa = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-
-    /**
-     * Hitung Pasaran Jawa
-     * Anchor: 1 Januari 1970 = Kamis Legi
-     */
-    function getPasaran(date) {
-      const anchor = new Date(1970, 0, 1); // Kamis Legi
-      const diffDays = Math.floor((date - anchor) / 86400000);
-      return pasaran[(diffDays % 5 + 5) % 5];
-    }
-
-    /**
-     * Hitung Weton Lengkap
-     */
-    function getWeton(date) {
-      const hari = hariJawa[date.getDay()];
-      const pas = getPasaran(date);
-      return `${hari} ${pas}`;
-    }
-
-    function updateClock() {
-      const nowUTC = new Date(new Date().toUTCString());
-      const local = new Date(nowUTC.getTime() + zoneOffset[zone] * 3600000);
-
-      // Jam
-      document.getElementById('clock').textContent =
-        local.toLocaleTimeString('id-ID', { hour12: false });
-
-      // Tahun kecil di bawah jam
-      document.getElementById('year').textContent = local.getFullYear();
-
-      // Tanggal Masehi
-      const tanggalMasehi = local.toLocaleDateString('id-ID', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-
-      // Weton Lengkap
-      const weton = getWeton(local);
-
-      document.getElementById('date').textContent =
-        `${weton} | ${tanggalMasehi}`;
-
-      // Tanggal Hijriyah
-      const hijri = local.toLocaleDateString('id-ID-u-ca-islamic', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-
-      document.getElementById('hijri').textContent =
-        `${hijri} H | ${zone}`;
-    }
-
-    function setZone(z) {
-      zone = z;
-      updateClock();
-    }
-
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script> -->
-
-  <!-- <script>
-    let zone = 'WIB';
-
-    const zoneOffset = {
-      WIB: 7,
-      WITA: 8,
-      WIT: 9
-    };
-
-    const pasaran = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
-
-    function getPasaran(date) {
-      const baseDate = new Date(1970, 0, 1);
-      const diff = Math.floor((date - baseDate) / 86400000);
-      return pasaran[diff % 5];
-    }
-
-    function updateClock() {
-      const nowUTC = new Date(new Date().toUTCString());
-      const local = new Date(nowUTC.getTime() + zoneOffset[zone] * 3600000);
-
-      // Jam
-      const time = local.toLocaleTimeString('id-ID', {
-        hour12: false
-      });
-
-      document.getElementById('clock').textContent = time;
-      document.getElementById('year').textContent = local.getFullYear();
-
-      // Tanggal Masehi + Pasaran
-      const dateText = local.toLocaleDateString('id-ID', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-
-      document.getElementById('date').textContent =
-        `${dateText} | ${getPasaran(local)}`;
-
-      // Tanggal Hijriyah
-      const hijri = local.toLocaleDateString('id-ID-u-ca-islamic', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-
-      document.getElementById('hijri').textContent =
-        `${hijri} H | ${zone}`;
-    }
-
-    function setZone(z) {
-      zone = z;
-      updateClock();
-    }
-
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script> -->
-
+  
 </body>
 
 </html>
