@@ -102,23 +102,18 @@
       display: block !important
     }
   </style>
-
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
+    .clock-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at top, #1e3c2f, #06150f);
     }
 
-    /* Jam Dinding */
     .wall-clock {
-      width: 320px;
-      height: 320px;
+      width: min(80vw, 340px);
+      aspect-ratio: 1;
       border-radius: 50%;
-      padding: 14px;
+      padding: 16px;
       background:
         repeating-radial-gradient(circle,
           rgba(255, 255, 255, 0.05) 0,
@@ -127,26 +122,21 @@
           transparent 14px),
         linear-gradient(135deg, #0d3b2e, #02130d);
       box-shadow:
-        0 0 25px rgba(0, 255, 170, 0.35),
+        0 0 30px rgba(0, 255, 170, 0.35),
         inset 0 0 30px rgba(0, 0, 0, 0.6);
     }
 
-    /* Wajah Jam */
     .clock-face {
       position: relative;
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background:
-        radial-gradient(circle, #123c2d, #03140e);
+      background: radial-gradient(circle, #123c2d, #03140e);
     }
 
-    /* Angka Jam */
     .number {
       position: absolute;
       color: #c9ffe5;
-      font-size: 22px;
-      font-family: Arial, sans-serif;
       font-weight: bold;
     }
 
@@ -163,7 +153,7 @@
     }
 
     .n6 {
-      bottom: 6px;
+      bottom: 8px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -174,27 +164,22 @@
       transform: translateY(-50%);
     }
 
-    /* Jarum Jam */
     .hand {
       position: absolute;
-      width: 50%;
-      height: 2px;
-      background: #c9ffe5;
       top: 50%;
       left: 50%;
       transform-origin: 0% 50%;
-      transform: rotate(90deg);
     }
 
     .hour {
-      width: 32%;
-      height: 5px;
-      background: #ffffff;
+      width: 30%;
+      height: 6px;
+      background: #fff;
     }
 
     .minute {
-      width: 44%;
-      height: 3px;
+      width: 42%;
+      height: 4px;
       background: #a6ffe0;
     }
 
@@ -204,11 +189,10 @@
       background: #ff4d4d;
     }
 
-    /* Titik Tengah */
     .center-dot {
       position: absolute;
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       background: #fff;
       border-radius: 50%;
       top: 50%;
@@ -245,74 +229,75 @@
 
   <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
     <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"
-      aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
-      <svg class="bi my-1 theme-icon-active" aria-hidden="true">
+      aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)"><svg
+        class="bi my-1 theme-icon-active" aria-hidden="true">
         <use href="#circle-half"></use>
-      </svg>
-      <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-    </button>
+      </svg><span class="visually-hidden" id="bd-theme-text">Toggle theme</span></button>
     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-      <li>
-        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
-          aria-pressed="false">
-          <svg class="bi me-2 opacity-50" aria-hidden="true">
+      <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
+          aria-pressed="false"><svg class="bi me-2 opacity-50" aria-hidden="true">
             <use href="#sun-fill"></use>
-          </svg>
-          Light
-          <svg class="bi ms-auto d-none" aria-hidden="true">
+          </svg>Light <svg class="bi ms-auto d-none" aria-hidden="true">
             <use href="#check2"></use>
-          </svg>
-        </button>
-      </li>
-      <li>
-        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
-          aria-pressed="false">
-          <svg class="bi me-2 opacity-50" aria-hidden="true">
+          </svg></button></li>
+      <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
+          aria-pressed="false"><svg class="bi me-2 opacity-50" aria-hidden="true">
             <use href="#moon-stars-fill"></use>
-          </svg>
-          Dark
-          <svg class="bi ms-auto d-none" aria-hidden="true">
+          </svg>Dark <svg class="bi ms-auto d-none" aria-hidden="true">
             <use href="#check2"></use>
-          </svg>
-        </button>
-      </li>
-      <li>
-        <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto"
-          aria-pressed="true">
-          <svg class="bi me-2 opacity-50" aria-hidden="true">
+          </svg></button></li>
+      <li><button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto"
+          aria-pressed="true"><svg class="bi me-2 opacity-50" aria-hidden="true">
             <use href="#circle-half"></use>
-          </svg>
-          Auto
-          <svg class="bi ms-auto d-none" aria-hidden="true">
+          </svg>Auto <svg class="bi ms-auto d-none" aria-hidden="true">
             <use href="#check2"></use>
-          </svg>
-        </button>
-      </li>
+          </svg></button></li>
     </ul>
   </div>
 
-  <main class="container w-100 m-auto">
-
-    <div class="wall-clock">
-      <div class="clock-face">
-        <div class="hand hour" id="hour"></div>
-        <div class="hand minute" id="minute"></div>
-        <div class="hand second" id="second"></div>
-        <div class="center-dot"></div>
-
-        <!-- Angka Jam -->
-        <span class="number n12">12</span>
-        <span class="number n3">3</span>
-        <span class="number n6">6</span>
-        <span class="number n9">9</span>
+  <main class="form-signin w-100 m-auto text-center">
+    <div class="clock-wrapper">
+      <div class="wall-clock">
+        <div class="clock-face">
+          <div class="hand hour" id="hour"></div>
+          <div class="hand minute" id="minute"></div>
+          <div class="hand second" id="second"></div>
+          <div class="center-dot"></div><span class="number n12">12</span><span class="number n3">3</span><span
+            class="number n6">6</span><span class="number n9">9</span>
+        </div>
       </div>
     </div>
-
   </main>
 
   <script src="assets/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    function updateWallClock() {
+      const now = new Date();
+
+      const second = now.getSeconds();
+      const minute = now.getMinutes();
+      const hour = now.getHours();
+
+      const secondDeg = second * 6 - 90;
+      const minuteDeg = (minute * 6 + second * 0.1) - 90;
+      const hourDeg = ((hour % 12) * 30 + minute * 0.5) - 90;
+
+      document.getElementById('second').style.transform =
+        `rotate(${secondDeg}deg)`;
+
+      document.getElementById('minute').style.transform =
+        `rotate(${minuteDeg}deg)`;
+
+      document.getElementById('hour').style.transform =
+        `rotate(${hourDeg}deg)`;
+    }
+
+    setInterval(updateWallClock, 1000);
+    updateWallClock();
+  </script>
+
+  <!-- <script>
     function updateWallClock() {
       const now = new Date();
 
@@ -336,7 +321,7 @@
 
     setInterval(updateWallClock, 1000);
     updateWallClock();
-  </script>
+  </script> -->
 
 </body>
 
