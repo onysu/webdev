@@ -147,7 +147,6 @@
 
     .clock-container {
       text-align: center;
-      color: #00ff7f;
       font-family: 'DS-Digital', monospace;
     }
 
@@ -166,7 +165,6 @@
     .hijri {
       font-family: Arial, sans-serif;
       font-size: 16px;
-      color: #b8ffd9;
       margin-top: 4px;
     }
 
@@ -178,7 +176,6 @@
     button {
       background: transparent;
       border: 1px solid #00ff7f;
-      color: #00ff7f;
       padding: 4px 10px;
       margin: 0 2px;
       cursor: pointer;
@@ -335,7 +332,7 @@
       document.getElementById('clock').innerHTML =
         t.time + (is12Hour ? `<span class="ampm">${t.ampm}</span>` : '');
 
-      document.getElementById('year').textContent = local.getFullYear();
+      // document.getElementById('year').textContent = local.getFullYear();
 
       const tanggalMasehi = local.toLocaleDateString('id-ID', {
         day: 'numeric',
