@@ -261,6 +261,28 @@
       }
     }
   </style>
+
+  <style>
+    .mode-jumat .wall-clock {
+      box-shadow:
+        0 0 40px rgba(255, 215, 0, 0.6),
+        inset 0 0 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .mode-jumat #date-jawa {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .mode-ramadhan .wall-clock {
+      background: radial-gradient(circle, #1f4f3b, #081d14);
+    }
+
+    .mode-ramadhan #date-hijri {
+      color: #7fffd4;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
@@ -343,7 +365,12 @@
 
   <script>
     function updateWallClock() {
-      const now = new Date();
+      // const now = new Date();
+      const now = new Date(
+        new Date().toLocaleString('en-US', {
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+        })
+      );
 
       const second = now.getSeconds();
       const minute = now.getMinutes();
@@ -379,6 +406,13 @@
     ========================= */
     const pasaran = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
     const pasaranRef = new Date('1970-01-01'); // Kamis Legi
+    const zonaIndonesia = {
+      'Asia/Jakarta': 'WIB',
+      'Asia/Pontianak': 'WIB',
+      'Asia/Makassar': 'WITA',
+      'Asia/Jayapura': 'WIT'
+    };
+
 
     function getPasaran(date) {
       const diffDays = Math.floor((date - pasaranRef) / 86400000);
@@ -388,11 +422,27 @@
     /* =========================
        ZONA WAKTU INDONESIA
     ========================= */
-    function getZonaWaktu(date) {
+    /* function getZonaWaktu(date) {
       const offset = -date.getTimezoneOffset() / 60;
       if (offset === 7) return 'WIB';
       if (offset === 8) return 'WITA';
       if (offset === 9) return 'WIT';
+      return 'LOCAL';
+    } */
+
+    function getZonaWaktu(date = new Date()) {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      if (zonaIndonesia[tz]) {
+        return zonaIndonesia[tz];
+      }
+
+      // fallback pakai offset
+      const offset = -date.getTimezoneOffset() / 60;
+      if (offset === 7) return 'WIB';
+      if (offset === 8) return 'WITA';
+      if (offset === 9) return 'WIT';
+
       return 'LOCAL';
     }
 
@@ -408,13 +458,35 @@
       return date;
     }
 
+    function isJumat(islamicDate) {
+      return islamicDate.getDay() === 5; // 0=Minggu ... 5=Jumat
+    }
+
+    function getHijriMonth(islamicDate) {
+      return new Intl.DateTimeFormat(
+        'id-ID-u-ca-islamic',
+        { month: 'long' }
+      ).format(islamicDate);
+    }
+
+    function isRamadhan(islamicDate) {
+      const bulan = getHijriMonth(islamicDate).toLowerCase();
+      return bulan.includes('ramadhan') || bulan.includes('ramadan');
+    }
+
     /* =========================
        UPDATE SEMUA INFO WAKTU
     ========================= */
     let lastHijri = '';
 
     function updateDateInfo() {
-      const now = new Date();
+      // const now = new Date();
+      const now = new Date(
+        new Date().toLocaleString('en-US', {
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+        })
+      );
+
       const islamicDate = getIslamicDate(now);
 
       /* JAM DIGITAL */
@@ -491,6 +563,15 @@
       }
 
       hijriEl.textContent = hijriText;
+
+      /* MODE JUMAT */
+      const isFriday = isJumat(islamicDate);
+      document.body.classList.toggle('mode-jumat', isFriday);
+
+      // highlight khusus Ramadhan
+      const ramadhan = isRamadhan(islamicDate);
+      document.body.classList.toggle('mode-ramadhan', ramadhan);
+
     }
 
     /* =========================
