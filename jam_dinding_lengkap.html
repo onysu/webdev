@@ -365,12 +365,12 @@
     setInterval(updateWallClock, 1000);
     updateWallClock();
 
-    console.log(
+    /* console.log(
       new Intl.DateTimeFormat('id-ID', {
         timeZone: 'Asia/Jakarta',
         timeStyle: 'medium'
       }).format(new Date())
-    );
+    ); */
   </script>
 
   <script>
@@ -453,14 +453,32 @@
         `${hariJawa} ${getPasaran(islamicDate)}`;
 
       /* HIJRIYAH */
-      const hijri = new Intl.DateTimeFormat('id-ID-u-ca-islamic', {
+      /* const hijri = new Intl.DateTimeFormat('id-ID-u-ca-islamic', {
         day: 'numeric',
         month: 'long',
         year: 'numeric'
-      }).format(islamicDate);
+      }).format(islamicDate); */
+
+      const hijriFormatter = new Intl.DateTimeFormat(
+        'id-ID-u-ca-islamic',
+        {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        }
+      );
+
+      /* const zona = getZonaWaktu(now);
+      const hijriText = `${hijri} | ${zona}`; */
+
+      /* HIJRIYAH (MAGHRIB-BASED) */
+      const hijriRaw = hijriFormatter.format(islamicDate);
+
+      // pastikan "H" hanya muncul sekali
+      const hijriClean = hijriRaw.replace(/\s?H$/i, '');
 
       const zona = getZonaWaktu(now);
-      const hijriText = `${hijri} | ${zona}`;
+      const hijriText = `${hijriClean} H | ${zona}`;
 
       const hijriEl = document.getElementById('date-hijri');
 
