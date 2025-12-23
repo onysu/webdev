@@ -1,118 +1,4 @@
 <h3>🎓 PERTEMUAN 3 — Percabangan & Perulangan PHP</h3>
-<p>Pada pertemuan kali ini, kita akan mempelajari konsep dasar percabangan dan perulangan dalam bahasa pemrograman PHP.
-  Percabangan memungkinkan kita untuk mengeksekusi kode tertentu berdasarkan kondisi tertentu, sedangkan perulangan
-  memungkinkan kita untuk menjalankan kode yang sama berulang kali selama kondisi tertentu terpenuhi.</p>
-
-<h4>1. Percabangan (Conditional Statements)</h4>
-<p>Percabangan dalam PHP dapat dilakukan menggunakan beberapa struktur, di antaranya:</p>
-<ul>
-  <li><strong>If Statement:</strong> Digunakan untuk mengeksekusi kode jika kondisi tertentu benar.</li>
-</ul>
-
-<pre><code>&lt;?php
-$nilai = 85;
-
-if ($nilai >= 80) {
-    echo "Nilai Anda A";
-} else {
-    echo "Nilai Anda B";
-}
-?&gt;</code></pre>
-
-<ul>
-  <li><strong>Elseif Statement:</strong> Digunakan untuk menambahkan kondisi tambahan setelah if.</li>
-</ul>
-
-<pre><code>&lt;?php
-$nilai = 85;
-
-if ($nilai >= 80) {
-    echo "Nilai Anda A";
-} elseif ($nilai >= 70) {
-    echo "Nilai Anda B";
-} else {
-    echo "Nilai Anda C";
-}
-?&gt;</code></pre>
-
-<ul>
-  <li><strong>Switch Statement:</strong> Digunakan untuk mengeksekusi salah satu dari banyak blok kode berdasarkan nilai
-    variabel.</li>
-</ul>
-
-<pre><code>&lt;?php
-$hari = "Senin";
-
-switch ($hari) {
-    case "Senin":
-        echo "Hari pertama dalam seminggu";
-        break;
-    case "Selasa":
-        echo "Hari kedua dalam seminggu";
-        break;
-    default:
-        echo "Hari lainnya";
-}
-?&gt;</code></pre>
-
-<h4>2. Perulangan (Loops)</h4>
-<p>Perulangan dalam PHP dapat dilakukan menggunakan beberapa struktur, di antaranya:</p>
-<ul>
-  <li><strong>For Loop:</strong> Digunakan untuk menjalankan kode sejumlah tertentu kali.</li>
-</ul>
-
-<pre><code>&lt;?php
-for ($i = 1; $i <= 5; $i++) {
-    echo "Perulangan ke-$i &lt;br&gt;";
-}
-?&gt;</code></pre>
-
-<ul>
-  <li><strong>While Loop:</strong> Digunakan untuk menjalankan kode selama kondisi tertentu benar.</li>
-</ul>
-
-<pre><code>&lt;?php
-$i = 1;
-
-while ($i <= 5) {
-    echo "Perulangan ke-$i &lt;br&gt;";
-    $i++;
-}
-?&gt;</code></pre>
-
-<ul>
-  <li><strong>While Loop:</strong> Digunakan untuk menjalankan kode selama kondisi tertentu benar.</li>
-</ul>
-
-<pre><code>&lt;?php
-$i = 1;
-
-while ($i <= 5) {
-    echo "Perulangan ke-$i &lt;br&gt;";
-    $i++;
-}
-?&gt;</code></pre>
-
-<ul>
-  <li><strong>Do-While Loop:</strong> Mirip dengan while, tetapi kode akan dieksekusi setidaknya sekali sebelum kondisi
-    diperiksa.</li>
-</ul>
-
-<pre><code>&lt;?php
-$i = 1;
-
-do {
-    echo "Perulangan ke-$i &lt;br&gt;";
-    $i++;
-} while ($i <= 5);
-?&gt;</code></pre>
-
-<p>Dengan memahami percabangan dan perulangan, Anda dapat membuat program PHP yang lebih dinamis dan responsif terhadap
-  berbagai kondisi. Latihanlah dengan membuat beberapa contoh kode untuk memperkuat pemahaman Anda!</p>
-
-<p>Selamat belajar dan sampai jumpa di pertemuan berikutnya!</p>
-
-<hr>
 
 <ul>
   <li><strong>Server :</strong> XAMPP</li>
@@ -357,7 +243,14 @@ foreach ($buah as $item) {
   </li>
 </ol>
 
-
-
-
 <hr>
+
+<h3>📕 CATATAN PENGAJAR</h3>
+<ul>
+  <li>Pastikan siswa memahami alur logika, bukan menghafal.</li>
+  <li>Gunakan contoh dunia nyata.</li>
+  <li>Jangan masuk nested IF terlalu dalam.</li>
+  <li>Berikan latihan yang menantang namun sesuai tingkat pemahaman siswa.</li>
+  <li>Perjelas perbedaan == dan =.</li>
+  <li>Pastikan loop tidak infinite (lupa $i++).</li>
+</ul>
