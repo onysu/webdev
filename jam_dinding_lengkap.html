@@ -410,9 +410,10 @@
        KONFIGURASI GLOBAL
     ========================= */
     const PASARAN = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
-
-    // Referensi Kamis Legi (1 Jan 1970) – UTC midnight
-    const PASARAN_REF_UTC = Date.UTC(1970, 0, 1);
+    // Referensi pasaran valid:
+    // Selasa Wage, 23 Desember 2025 (Indonesia)
+    const PASARAN_REF_DATE = new Date(2025, 11, 23); // bulan 0-based
+    const PASARAN_REF_INDEX = 3; // Wage
 
     const ZONA_INDONESIA = {
       'Asia/Jakarta': 'WIB',
@@ -488,15 +489,20 @@
        PASARAN JAWA (AKURAT)
     ========================= */
     function getPasaran(date) {
-      // Normalisasi ke UTC midnight
-      const utcMidnight = Date.UTC(
+      const d1 = new Date(
+        PASARAN_REF_DATE.getFullYear(),
+        PASARAN_REF_DATE.getMonth(),
+        PASARAN_REF_DATE.getDate()
+      );
+
+      const d2 = new Date(
         date.getFullYear(),
         date.getMonth(),
         date.getDate()
       );
 
-      const diffDays = Math.floor((utcMidnight - PASARAN_REF_UTC) / 86400000);
-      return PASARAN[(diffDays % 5 + 5) % 5];
+      const diffDays = Math.round((d2 - d1) / 86400000);
+      return PASARAN[(PASARAN_REF_INDEX + diffDays) % 5];
     }
 
     /* =========================
