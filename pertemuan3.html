@@ -1,0 +1,363 @@
+<h3>🎓 PERTEMUAN 3 — Percabangan & Perulangan PHP</h3>
+<p>Pada pertemuan kali ini, kita akan mempelajari konsep dasar percabangan dan perulangan dalam bahasa pemrograman PHP.
+  Percabangan memungkinkan kita untuk mengeksekusi kode tertentu berdasarkan kondisi tertentu, sedangkan perulangan
+  memungkinkan kita untuk menjalankan kode yang sama berulang kali selama kondisi tertentu terpenuhi.</p>
+
+<h4>1. Percabangan (Conditional Statements)</h4>
+<p>Percabangan dalam PHP dapat dilakukan menggunakan beberapa struktur, di antaranya:</p>
+<ul>
+  <li><strong>If Statement:</strong> Digunakan untuk mengeksekusi kode jika kondisi tertentu benar.</li>
+</ul>
+
+<pre><code>&lt;?php
+$nilai = 85;
+
+if ($nilai >= 80) {
+    echo "Nilai Anda A";
+} else {
+    echo "Nilai Anda B";
+}
+?&gt;</code></pre>
+
+<ul>
+  <li><strong>Elseif Statement:</strong> Digunakan untuk menambahkan kondisi tambahan setelah if.</li>
+</ul>
+
+<pre><code>&lt;?php
+$nilai = 85;
+
+if ($nilai >= 80) {
+    echo "Nilai Anda A";
+} elseif ($nilai >= 70) {
+    echo "Nilai Anda B";
+} else {
+    echo "Nilai Anda C";
+}
+?&gt;</code></pre>
+
+<ul>
+  <li><strong>Switch Statement:</strong> Digunakan untuk mengeksekusi salah satu dari banyak blok kode berdasarkan nilai
+    variabel.</li>
+</ul>
+
+<pre><code>&lt;?php
+$hari = "Senin";
+
+switch ($hari) {
+    case "Senin":
+        echo "Hari pertama dalam seminggu";
+        break;
+    case "Selasa":
+        echo "Hari kedua dalam seminggu";
+        break;
+    default:
+        echo "Hari lainnya";
+}
+?&gt;</code></pre>
+
+<h4>2. Perulangan (Loops)</h4>
+<p>Perulangan dalam PHP dapat dilakukan menggunakan beberapa struktur, di antaranya:</p>
+<ul>
+  <li><strong>For Loop:</strong> Digunakan untuk menjalankan kode sejumlah tertentu kali.</li>
+</ul>
+
+<pre><code>&lt;?php
+for ($i = 1; $i <= 5; $i++) {
+    echo "Perulangan ke-$i &lt;br&gt;";
+}
+?&gt;</code></pre>
+
+<ul>
+  <li><strong>While Loop:</strong> Digunakan untuk menjalankan kode selama kondisi tertentu benar.</li>
+</ul>
+
+<pre><code>&lt;?php
+$i = 1;
+
+while ($i <= 5) {
+    echo "Perulangan ke-$i &lt;br&gt;";
+    $i++;
+}
+?&gt;</code></pre>
+
+<ul>
+  <li><strong>While Loop:</strong> Digunakan untuk menjalankan kode selama kondisi tertentu benar.</li>
+</ul>
+
+<pre><code>&lt;?php
+$i = 1;
+
+while ($i <= 5) {
+    echo "Perulangan ke-$i &lt;br&gt;";
+    $i++;
+}
+?&gt;</code></pre>
+
+<ul>
+  <li><strong>Do-While Loop:</strong> Mirip dengan while, tetapi kode akan dieksekusi setidaknya sekali sebelum kondisi
+    diperiksa.</li>
+</ul>
+
+<pre><code>&lt;?php
+$i = 1;
+
+do {
+    echo "Perulangan ke-$i &lt;br&gt;";
+    $i++;
+} while ($i <= 5);
+?&gt;</code></pre>
+
+<p>Dengan memahami percabangan dan perulangan, Anda dapat membuat program PHP yang lebih dinamis dan responsif terhadap
+  berbagai kondisi. Latihanlah dengan membuat beberapa contoh kode untuk memperkuat pemahaman Anda!</p>
+
+<p>Selamat belajar dan sampai jumpa di pertemuan berikutnya!</p>
+
+<hr>
+
+<ul>
+  <li><strong>Server :</strong> XAMPP</li>
+  <li><strong>Level :</strong> Pemula</li>
+  <li><strong>Fokus :</strong> Logika program dan pengambilan keputusan</li>
+  <li><strong>Durasi :</strong> 1 Pertemuan (2 Jam)</li>
+</ul>
+
+<hr>
+
+<h3>🧩 TUJUAN PEMBELAJARAN</h3>
+<p>Setelah sesi ini, siswa mampu:</p>
+<ul>
+  <li>Menggunakan IF, ELSE, dan ELSEIF dengan benar.</li>
+  <li>Menggunakan SWITCH untuk kondisi tertentu.</li>
+  <li>Menggunakan perulangan FOR, WHILE, dan FOREACH.</li>
+  <li>Menerapkan logika percabangan dan perulangan pada kasus nyata.</li>
+  <li>Membuat program PHP sederhana berbasis logika.</li>
+</ul>
+
+<hr>
+
+<h3>📘 PERCABANGAN IF – ELSE</h3>
+<p><strong>Konsep Percabangan</strong></p>
+<p>Percabangan = program memilih aksi berdasarkan kondisi.</p>
+
+Contoh kehidupan nyata:
+<ul>
+  <li>Jika hujan, maka bawa payung.</li>
+  <li>Jika nilai ≥ 75 → lulus.</li>
+</ul>
+
+<h4><strong>IF Sederhana</strong></h4>
+<p>Struktur dasar dari percabangan <strong>IF</strong> adalah sebagai berikut:</p>
+
+<pre><code>&lt;?php
+if (kondisi) {
+    // kode yang dieksekusi jika kondisi benar
+}
+?&gt;</code></pre>
+
+<p>Contoh penggunaan <strong>IF</strong> sederhana:</p>
+
+<pre><code>&lt;?php
+$nilai = 85;
+
+if ($nilai >= 80) {
+    echo "Nilai Anda A";
+}
+?&gt;</code></pre>
+
+<p>Dalam contoh di atas, jika nilai lebih besar atau sama dengan 80, maka akan menampilkan "Nilai Anda A".</p>
+
+<h4><strong>IF – ELSE</strong></h4>
+
+<p>Struktur dasar dari percabangan <strong>IF – ELSE</strong> adalah sebagai berikut:</p>
+
+<pre><code>&lt;?php
+if (kondisi) {
+    // kode yang dieksekusi jika kondisi benar
+} else {
+    // kode yang dieksekusi jika kondisi salah
+}
+?&gt;</code></pre>
+
+<p>Contoh penggunaan <strong>IF – ELSE</strong>:</p>
+
+<pre><code>&lt;?php
+$nilai = 75;
+
+if ($nilai >= 60) {
+    echo "Lulus";
+} else {
+    echo "Tidak Lulus";
+}
+?&gt;</code></pre>
+
+<p>Dalam contoh di atas, jika nilai lebih besar atau sama dengan 60, maka akan menampilkan "Lulus". Jika tidak, akan
+  menampilkan "Tidak Lulus".</p>
+
+<h4><strong>ELSEIF</strong></h4>
+
+<p>Struktur dasar dari percabangan <strong>ELSEIF</strong> adalah sebagai berikut:</p>
+
+<pre><code>&lt;?php
+if (kondisi1) {
+    // kode yang dieksekusi jika kondisi1 benar
+} elseif (kondisi2) {
+    // kode yang dieksekusi jika kondisi2 benar
+} else {
+    // kode yang dieksekusi jika semua kondisi salah
+}
+?&gt;</code></pre>
+
+<p>Contoh penggunaan <strong>ELSEIF</strong>:</p>
+
+<pre><code>&lt;?php
+$nilai = 85;
+
+if ($nilai >= 80) {
+    echo "Nilai Anda A";
+} elseif ($nilai >= 70) {
+    echo "Nilai Anda B";
+} else {
+    echo "Nilai Anda C";
+}
+?&gt;</code></pre>
+
+<p>Dalam contoh di atas, jika nilai lebih besar atau sama dengan 80, maka akan menampilkan "Nilai Anda A". Jika nilai
+  antara 70 dan 79, maka akan menampilkan "Nilai Anda B". Jika nilai kurang dari 70, maka akan menampilkan "Nilai Anda
+  C".</p>
+
+<hr>
+
+<h3>📘 E. PERCABANGAN SWITCH</h3>
+<p>Struktur dasar dari percabangan SWITCH adalah sebagai berikut:</p>
+
+<pre><code>&lt;?php
+switch (kondisi) {
+    case nilai1:
+        // kode yang dieksekusi jika kondisi sama dengan nilai1
+        break;
+    case nilai2:
+        // kode yang dieksekusi jika kondisi sama dengan nilai2
+        break;
+    default:
+        // kode yang dieksekusi jika tidak ada case yang cocok
+}
+?&gt;</code></pre>
+
+<p>Contoh penggunaan <strong>SWITCH</strong>:</p>
+
+<pre><code>&lt;?php
+$hari = "Senin";
+
+switch ($hari) {
+    case "Senin":
+        echo "Hari pertama dalam seminggu";
+        break;
+    case "Selasa":
+        echo "Hari kedua dalam seminggu";
+        break;
+    default:
+        echo "Hari lainnya";
+}
+?&gt;</code></pre>
+
+Catatan:
+<ul>
+  <li>Setiap case diakhiri dengan pernyataan <strong>break;</strong> untuk menghentikan eksekusi setelah case yang
+    cocok ditemukan.</li>
+  <li>Bagian <strong>default:</strong> bersifat opsional dan akan dieksekusi jika tidak ada case yang cocok.</li>
+</ul>
+
+<p>Dalam contoh di atas, jika hari adalah "Senin", maka akan menampilkan "Hari pertama dalam seminggu". Jika hari adalah
+  "Selasa", maka akan
+  menampilkan "Hari kedua dalam seminggu". Jika hari bukan "Senin" atau "Selasa", maka akan menampilkan "Hari lainnya".
+</p>
+
+<hr>
+
+<h4>📘 PERULANGAN (LOOP) PHP</h4>
+<p>Perulangan memungkinkan kita untuk mengeksekusi blok kode berulang kali selama kondisi tertentu terpenuhi. Berikut
+  adalah
+  beberapa jenis perulangan yang umum digunakan dalam PHP:</p>
+
+<h4>For</h4>
+Digunakan ketika jumlah iterasi sudah diketahui sebelumnya.
+
+<pre><code>&lt;?php
+for ($i = 1; $i <= 5; $i++) {
+    echo "Perulangan ke-$i &lt;br&gt;";
+}
+?&gt;</code></pre>
+
+<h4>While</h4>
+Digunakan ketika jumlah iterasi tidak diketahui dan bergantung pada kondisi tertentu.
+
+<pre><code>&lt;?php
+$i = 1;
+
+while ($i <= 5) {
+    echo "Perulangan ke-$i &lt;br&gt;";
+    $i++;
+}
+?&gt;</code></pre>
+
+<h4>Do-While</h4>
+Mirip dengan while, tetapi kode akan dieksekusi setidaknya sekali sebelum kondisi diperiksa.
+
+<pre><code>&lt;?php
+$i = 1;
+
+do {
+    echo "Perulangan ke-$i &lt;br&gt;";
+    $i++;
+} while ($i <= 5);
+?&gt;</code></pre>
+
+<h4>FOREACH (Array)</h4>
+Digunakan khusus untuk mengiterasi elemen dalam array.
+
+<pre><code>&lt;?php
+$buah = array("Apel", "Pisang", "Jeruk");
+foreach ($buah as $item) {
+    echo "Buah: $item &lt;br&gt;";
+}
+?&gt;</code></pre>
+
+<p>Dengan memahami dan menguasai percabangan serta perulangan dalam PHP, Anda dapat membuat program yang lebih dinamis
+  dan responsif terhadap berbagai kondisi. Latihanlah dengan membuat beberapa contoh kode untuk memperkuat pemahaman
+  Anda!</p>
+
+<hr>
+
+<h3>📗 PRAKTIK TERARAH</h3>
+
+<ol>
+  <li>
+    <h4>Cek Ganjil / Genap</h4>
+    <p>Buat file <code>ganjil_genap.php</code></p>
+
+    <pre><code>&lt;?php
+      $angka = 7;
+      
+      if ($angka % 2 == 0) {
+          echo "$angka adalah Bilangan Genap";
+      } else {
+          echo "$angka adalah Bilangan Ganjil";
+      }
+?&gt;</code></pre>
+  </li>
+  <li>
+    <h4>Loop Tabel Perkalian</h4>
+
+    <pre><code>&lt;?php
+    for ($i = 1; $i <= 10; $i++) {
+        echo "5 x $i = " . (5 * $i) . "&lt;br&gt;";
+    }
+?&gt;</code></pre>
+
+  </li>
+</ol>
+
+
+
+
+<hr>
