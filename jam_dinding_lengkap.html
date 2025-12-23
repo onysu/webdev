@@ -442,6 +442,7 @@
       // CONTOH statis (WIB)
       return {
         Subuh: '04:30',
+        Terbit: '05:45',
         Dzuhur: '11:55',
         Ashar: '15:15',
         Maghrib: '18:00',
@@ -473,7 +474,6 @@
       d.setHours(h, m, 0, 0);
       return d;
     }
-
 
     /* =========================
        MAGHRIB-BASED DAY
@@ -513,6 +513,34 @@
       ).format(islamicDate).toLowerCase();
 
       return bulan.includes('ramadhan') || bulan.includes('ramadan');
+    }
+
+    /* =========================
+           FUNGSI STATUS SHOLAT
+        ========================= */
+    function getPrayerStatus(now, pt) {
+
+      if (now >= pt.subuh && now < pt.terbit) {
+        return 'Sholat Subuh Berlangsung';
+      }
+
+      if (now >= pt.terbit && now < pt.dzuhur) {
+        return 'Waktu Dhuha';
+      }
+
+      if (now >= pt.dzuhur && now < pt.ashar) {
+        return 'Sholat Dzuhur Berlangsung';
+      }
+
+      if (now >= pt.ashar && now < pt.maghrib) {
+        return 'Sholat Ashar Berlangsung';
+      }
+
+      if (now >= pt.maghrib && now < pt.isya) {
+        return 'Sholat Maghrib Berlangsung';
+      }
+
+      return 'Sholat Isya Berlangsung';
     }
 
     /* =========================
@@ -573,14 +601,24 @@
       document.body.classList.toggle('mode-ramadhan', isRamadhan(islamicDate));
 
       /* =========================
-   JADWAL SHOLAT & COUNTDOWN
-========================= */
+        JADWAL SHOLAT & COUNTDOWN
+      ========================= */
       const prayerTimes = getPrayerTimes(now);
       const active = getActivePrayer(now, prayerTimes);
 
       if (active) {
+        // KHUSUS NON-SHOLAT (Dhuha)
+        if (active.name === 'Dhuha') {
+          document.getElementById('prayer-name').textContent =
+            'Waktu Dhuha';
+          document.getElementById('prayer-countdown').textContent = '';
+          return;
+        }
+
         const iqamahMinutes = IQAMAH_DELAY[active.name] || 10;
-        const iqamahTime = new Date(active.prayerTime.getTime() + iqamahMinutes * 60000);
+        const iqamahTime = new Date(
+          active.prayerTime.getTime() + iqamahMinutes * 60000
+        );
 
         let label = '';
         let countdown = '';
@@ -596,23 +634,41 @@
         document.getElementById('prayer-name').textContent = label;
         document.getElementById('prayer-countdown').textContent = countdown;
       }
-
     }
 
     function getActivePrayer(now, prayerTimes) {
-      const entries = Object.entries(prayerTimes);
+      const order = [
+        'Subuh',
+        'Terbit',
+        'Dzuhur',
+        'Ashar',
+        'Maghrib',
+        'Isya'
+      ];
 
-      for (let i = 0; i < entries.length; i++) {
-        const [name, time] = entries[i];
-        const prayerTime = parsePrayerTime(now, time);
+      for (let i = 0; i < order.length; i++) {
+        const name = order[i];
+        const timeStr = prayerTimes[name];
+        if (!timeStr) continue;
 
-        const nextEntry = entries[i + 1];
-        const nextTime = nextEntry
-          ? parsePrayerTime(now, nextEntry[1])
+        const start = parsePrayerTime(now, timeStr);
+        const nextName = order[i + 1];
+        const nextTimeStr = prayerTimes[nextName];
+        const end = nextTimeStr
+          ? parsePrayerTime(now, nextTimeStr)
           : null;
 
-        if (now >= prayerTime && (!nextTime || now < nextTime)) {
-          return { name, prayerTime };
+        if (now >= start && (!end || now < end)) {
+          // LEWATI TERBIT (bukan sholat)
+          if (name === 'Terbit') {
+            return {
+              name: 'Dhuha',
+              prayerTime: start,
+              isNonPrayer: true
+            };
+          }
+
+          return { name, prayerTime: start };
         }
       }
 
@@ -628,8 +684,6 @@
 
       return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
     }
-
-
 
     /* =========================
        LOOP
