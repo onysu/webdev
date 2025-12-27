@@ -177,7 +177,7 @@
       transform-origin: 0% 50%;
       z-index: 5;
       border-radius: 4px;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);      
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
     }
 
     /* Jarum Jam */
@@ -583,9 +583,13 @@
           <div class="hand hour" id="hour"></div>
           <div class="hand minute" id="minute"></div>
           <div class="hand second" id="second"></div>
-          <div class="center-dot"></div><span class="number n12">12</span>
+
+          <!-- menampilkan angka jika tidak ada gambar background -->
+          <!-- <div class="center-dot"></div>
+          <span class="number n12">12</span>
           <span class="number n3">3</span>
-          <span class="number n6">6</span><span class="number n9">9</span>
+          <span class="number n6">6</span><span class="number n9">9</span> -->
+
           <div class="time-info">
             <div id="date-masehi" class="date-line"></div>
             <div id="date-jawa" class="date-line jawa"></div>
@@ -600,7 +604,12 @@
     </div>
 
     <div class="prayer-banner">
-      <p class="prayer-text" id="prayer-info">Sholat</p>
+      <p class="prayer-text">
+        <span id="prayer-info">Waktu Sholat</span>
+        <br>
+        <strong id="prayer-name" style="display:inline-block;margin-top:6px;color:#fff;font-weight:700;"></strong>
+        <div id="prayer-countdown" style="font-size:0.9rem;margin-top:4px;opacity:0.9;"></div>
+      </p>
     </div>
 
     <!-- Extras: current prayer (single) + qibla indicator -->
@@ -947,19 +956,27 @@
         document.getElementById('current-prayer-name').textContent = active.name;
         document.getElementById('current-prayer-time').textContent = timeStr;
 
-        // Update prayer banner with current prayer info
-        const prayerEl = document.getElementById('prayer-info');
-        // Format: "Waktu Sholat • Subuh 04:32 | Terbit 06:02 | Dzuhur 12:20 | Ashar 15:30 | Maghrib 18:20 | Isya 19:35"
-        const times = [
-          `Subuh ${prayerTimes.Subuh || '—'}`,
-          `Terbit ${prayerTimes.Terbit || '—'}`,
-          `Dhuha ${prayerTimes.Dhuha || '—'}`,
-          `Dzuhur ${prayerTimes.Dzuhur || '—'}`,
-          `Ashar ${prayerTimes.Ashar || '—'}`,
-          `Maghrib ${prayerTimes.Maghrib || '—'}`,
-          `Isya ${prayerTimes.Isya || '—'}`
-        ];
-        prayerEl.textContent = `Waktu Sholat • ${times.join(' | ')}`;
+        // Show only the CURRENT prayer in the banner
+        const prayerLabel = document.getElementById('prayer-info');
+        const prayerNameEl = document.getElementById('prayer-name');
+        const prayerCountdownEl = document.getElementById('prayer-countdown');
+        if (prayerLabel) prayerLabel.textContent = 'Waktu Sholat';
+        if (prayerNameEl) prayerNameEl.textContent = `${active.name} ${timeStr}`;
+
+        // compute next prayer time for countdown
+        const order = ['Subuh','Terbit','Dhuha','Dzuhur','Ashar','Maghrib','Isya'];
+        const idx = order.indexOf(active.name);
+        let nextName = order[idx + 1] || order[0];
+        let nextTimeStr = prayerTimes[nextName];
+        let nextDate = nextTimeStr ? parsePrayerTime(now, nextTimeStr) : null;
+        // if wrapping past Isya to next day's Subuh, add one day
+        if (!nextDate && nextTimeStr) nextDate = parsePrayerTime(now, nextTimeStr);
+        if (idx === order.length - 1 && nextDate) nextDate.setDate(nextDate.getDate() + 1);
+        // fallback: if nextDate still null, set to active.prayerTime + 24h
+        if (!nextDate) nextDate = new Date(active.prayerTime.getTime() + 24 * 3600 * 1000);
+
+        const diffMs = Math.max(0, nextDate - now);
+        if (prayerCountdownEl) prayerCountdownEl.textContent = `Berakhir dalam ${formatCountdown(diffMs)}`;
 
         // ADZAN mode highlight for 60s
         const isAdzan = isAdzanMoment(now, active.prayerTime);
@@ -968,12 +985,17 @@
       } else {
         document.getElementById('current-prayer-name').textContent = '';
         document.getElementById('current-prayer-time').textContent = '';
-        document.getElementById('prayer-info').textContent = 'Waktu Sholat';
+        const prayerLabel = document.getElementById('prayer-info');
+        const prayerNameEl = document.getElementById('prayer-name');
+        const prayerCountdownEl = document.getElementById('prayer-countdown');
+        if (prayerLabel) prayerLabel.textContent = 'Waktu Sholat';
+        if (prayerNameEl) prayerNameEl.textContent = '';
+        if (prayerCountdownEl) prayerCountdownEl.textContent = '';
       }
     }
 
     function getActivePrayer(now, prayerTimes) {
-      const order = ['Subuh','Terbit','Dhuha','Dzuhur','Ashar','Maghrib','Isya'];
+      const order = ['Subuh', 'Terbit', 'Dhuha', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya'];
 
       for (let i = 0; i < order.length; i++) {
         const name = order[i];
@@ -1047,7 +1069,7 @@
     }
 
 
-    
+
     // Geolocation + HTTPS check helper
     function isSecureContextForGeo() {
       return location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
