@@ -19,6 +19,7 @@
     html,
     body {
       height: 100%;
+      background: #e9efd3;
       /* background: url(assets/img/islamic-bg-1.jpg);
       background-size: cover;
       background-position: center;
@@ -358,9 +359,113 @@
       text-shadow: 0 0 15px rgba(0, 255, 180, 0.9);
     }
   </style>
+
+  <!-- CSS CARDS -->
+  <style>
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+      padding: 0 16px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: space-between;
+    }
+
+    .card {
+      background: #e9efd3;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 calc(25% - 12px);
+      min-width: 200px;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 48px;
+    }
+
+    .card-content {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: #222;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .card-btn {
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .card-btn:hover {
+      background: #5568d3;
+    }
+
+    /* Responsive: tablet */
+    @media (max-width: 900px) {
+      .card {
+        flex: 1 1 calc(50% - 8px);
+      }
+    }
+
+    /* Responsive: small screens */
+    @media (max-width: 600px) {
+      .cards-container {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 12px;
+      }
+
+      .card {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
 </head>
 
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
+<!-- <body class="d-flex align-items-center py-4 bg-body-tertiary"> -->
+
+<body class="d-flex align-items-center py-4">
   <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
       <path
@@ -460,7 +565,8 @@
     </div>
 
     <!-- Extras: current prayer (single) + qibla indicator -->
-    <div class="extras" style="margin-top:12px;display:flex;justify-content:center;gap:24px;align-items:center;flex-wrap:wrap;">
+    <div class="extras"
+      style="margin-top:12px;display:flex;justify-content:center;gap:24px;align-items:center;flex-wrap:wrap;">
       <div id="current-prayer" style="text-align:center;min-width:180px;">
         <div id="current-prayer-name" style="font-weight:700;font-size:1.1rem;color:#1b5e20;"></div>
         <div id="current-prayer-time" style="font-size:1rem;color:#333;margin-top:6px;"></div>
@@ -468,7 +574,8 @@
 
       <div id="qibla" style="text-align:center;min-width:160px;">
         <div class="qibla-compass" style="width:80px;height:80px;margin:0 auto;position:relative;">
-          <svg id="qibla-arrow" viewBox="0 0 24 24" style="width:100%;height:100%;transform-origin:center center;transition:transform 0.6s ease;">
+          <svg id="qibla-arrow" viewBox="0 0 24 24"
+            style="width:100%;height:100%;transform-origin:center center;transition:transform 0.6s ease;">
             <circle cx="12" cy="12" r="11" stroke="#ccc" stroke-width="1" fill="transparent"></circle>
             <path d="M12 4 L15 12 L12 10 L9 12 Z" fill="#c62828"></path>
             <circle cx="12" cy="12" r="2" fill="#222"></circle>
@@ -476,6 +583,45 @@
         </div>
         <div id="qibla-deg" style="margin-top:6px;font-size:0.95rem;color:#333;"></div>
       </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="cards-container">
+      <a href="#" class="card">
+        <div class="card-image">📅</div>
+        <div class="card-content">
+          <div class="card-title">Jadwal Sholat</div>
+          <div class="card-desc">Lihat jadwal sholat lengkap untuk hari ini dan hari berikutnya.</div>
+          <button class="card-btn">Buka</button>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-image">🗺️</div>
+        <div class="card-content">
+          <div class="card-title">Arah Kiblat</div>
+          <div class="card-desc">Temukan arah kiblat yang akurat dari lokasi Anda saat ini.</div>
+          <button class="card-btn">Lihat</button>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-image">📖</div>
+        <div class="card-content">
+          <div class="card-title">Informasi Islam</div>
+          <div class="card-desc">Pelajari lebih lanjut tentang ajaran Islam dan tuntunannya.</div>
+          <button class="card-btn">Pelajari</button>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-image">⚙️</div>
+        <div class="card-content">
+          <div class="card-title">Pengaturan</div>
+          <div class="card-desc">Sesuaikan preferensi dan pengaturan jam dinding Anda.</div>
+          <button class="card-btn">Atur</button>
+        </div>
+      </a>
     </div>
 
   </main>
