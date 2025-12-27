@@ -936,10 +936,6 @@
       const prayerTimes = await getPrayerTimes(now);
       const active = getActivePrayer(now, prayerTimes);
 
-      // clear previous
-      document.getElementById('prayer-name').textContent = '';
-      document.getElementById('prayer-countdown').textContent = '';
-
       if (active) {
         // determine display time string (if Dhuha, use Sunrise)
         const displayKey = active.name === 'Dhuha' ? 'Terbit' : active.name;
@@ -1048,7 +1044,7 @@
     }
 
 
-
+    
     // Geolocation + HTTPS check helper
     function isSecureContextForGeo() {
       return location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
@@ -1103,8 +1099,6 @@
         updateQiblaWithCoords(-6.2, 106.816666);
       }
     })();
-
-    
 
     // make updateDateInfo async-friendly
     updateDateInfo();
