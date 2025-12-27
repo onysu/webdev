@@ -1047,6 +1047,65 @@
       }, { maximumAge: 60_000, timeout: 8000 });
     }
 
+
+
+    // Geolocation + HTTPS check helper
+    function isSecureContextForGeo() {
+      return location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    }
+
+    async function checkGeoPermissionAndStatus() {
+      const statusEl = document.getElementById('qibla-deg'); // gunakan elemen yang ada atau buat elemen status baru
+      const secure = isSecureContextForGeo();
+      if (!secure) {
+        if (statusEl) statusEl.textContent = 'Geolokasi: Tidak aman (buka via HTTPS atau localhost)';
+        return { allowed: false, secure: false, state: 'insecure' };
+      }
+
+      if (!navigator.permissions || !navigator.geolocation) {
+        if (statusEl) statusEl.textContent = 'Geolokasi: Tidak didukung oleh browser';
+        return { allowed: false, secure: true, state: 'unsupported' };
+      }
+
+      try {
+        const p = await navigator.permissions.query({ name: 'geolocation' });
+        // p.state === 'granted' | 'prompt' | 'denied'
+        if (statusEl) statusEl.textContent = `Geolokasi: ${p.state}`;
+        if (p.state === 'granted') {
+          return { allowed: true, secure: true, state: 'granted' };
+        }
+        if (p.state === 'prompt') {
+          // belum diizinkan, memicu prompt jika ingin:
+          return { allowed: false, secure: true, state: 'prompt' };
+        }
+        return { allowed: false, secure: true, state: 'denied' };
+      } catch (err) {
+        if (statusEl) statusEl.textContent = 'Geolokasi: Error cek permission';
+        return { allowed: false, secure: true, state: 'error' };
+      }
+    }
+
+    // contoh: panggil sebelum updateQibla() untuk mengambil status
+    (async () => {
+      const st = await checkGeoPermissionAndStatus();
+      if (st.state === 'prompt') {
+        // trigger prompt untuk pengguna
+        navigator.geolocation.getCurrentPosition((pos) => {
+          updateQiblaWithCoords(pos.coords.latitude, pos.coords.longitude);
+        }, (err) => {
+          // fallback jika ditolak atau error
+          updateQiblaWithCoords(-6.2, 106.816666);
+        }, { maximumAge: 60000, timeout: 8000 });
+      } else if (st.state === 'granted') {
+        updateQibla(); // sudah diizinkan, akan memanggil getCurrentPosition
+      } else if (st.state === 'denied' || st.state === 'unsupported' || st.state === 'insecure') {
+        // fallback atau tampilkan instruksi
+        updateQiblaWithCoords(-6.2, 106.816666);
+      }
+    })();
+
+    
+
     // make updateDateInfo async-friendly
     updateDateInfo();
     setInterval(() => updateDateInfo(), 1000);
