@@ -180,12 +180,13 @@ echo "Input pengguna: " . $_GET["input"];
     <li>
       Contoh dengan htmlspecialchars():
       <pre><code>&lt;?php
-  echo "Input pengguna: " . htmlspecialchars($_GET["input"]);
-  ?&gt;</code></pre>
+echo "Input pengguna: " . htmlspecialchars($_GET["input"]);
+?&gt;</code></pre>
       Jika pengguna memasukkan: <code>&lt;script&gt;alert('Hacked!');&lt;/script&gt;</code>, maka akan ditampilkan
       sebagai
       teks biasa:
-      <pre><code>Input pengguna: &lt;script&gt;alert('Hacked!');&lt;/script&gt;</code></pre>
+      <pre><code>Input pengguna: &amp;lt;script&amp;gt;alert('Hacked!');&amp;lt;/script&amp;gt;</code></pre>
+
     </li>
   </ul>
 
