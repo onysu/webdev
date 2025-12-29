@@ -1,0 +1,174 @@
+<h5>🎓 PERTEMUAN 5 — Form Handling PHP (GET & POST) + Validasi</h5>
+
+<p>Pada pertemuan kali ini, kita akan mempelajari tentang cara menangani form di PHP menggunakan metode GET dan POST,
+  serta bagaimana melakukan validasi data yang diinputkan oleh pengguna.</p>
+
+<h6>🧩 TUJUAN PEMBELAJARAN</h6>
+<b>Siswa mampu:</b>
+<ul>
+  <li>Memahami cara kerja form HTML → PHP.</li>
+  <li>Menggunakan $_GET dan $_POST.</li>
+  <li>Mengambil dan menampilkan data dari form.</li>
+  <li>Memvalidasi dasar input pengguna.</li>
+  <li>Membuat form login sederhana berbasis PHP.</li>
+</ul>
+
+<hr>
+
+<h5>📘 KONSEP FORM & HTTP METHOD</h5>
+<p>Form HTML digunakan untuk mengirim data ke server.</p>
+<ul>
+  <li>Form memiliki atribut <code>action</code> (tujuan pengiriman data) dan <code>method</code> (metode pengiriman:
+    GET atau POST).</li>
+  <li><strong>GET:</strong> Data dikirim melalui URL, terlihat di address bar. Cocok untuk data non-sensitif.</li>
+  <li><strong>POST:</strong> Data dikirim melalui body HTTP, tidak terlihat di URL. Cocok untuk data sensitif.</li>
+</ul>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>Atribut Form</th>
+    <th>Deskripsi</th>
+  </tr>
+  <tr>
+    <td><code>action</code></td>
+    <td>Menentukan URL atau file PHP yang akan memproses data form.</td>
+  </tr>
+  <tr>
+    <td><code>method</code></td>
+    <td>Menentukan metode pengiriman data (GET atau POST).</td>
+  </tr>
+</table>
+
+<h6>Perbedaan Metode GET dan POST</h6>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>Method</th>
+    <th>Keterangan</th>
+  </tr>
+  <tr>
+    <td>GET</td>
+    <td>Data tampil di URL</td>
+  </tr>
+  <tr>
+    <td>POST</td>
+    <td>Data tidak tampil di URL</td>
+  </tr>
+</table>
+
+<hr>
+
+<h5>📘 FORM GET</h5>
+
+<p>Contoh form menggunakan metode GET:</p>
+
+<p>Buat file: <code>form_get.php</code></p>
+
+<pre><code>&lt;form action="process.php" method="get"&gt;
+  &lt;label for="name"&gt;Name:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name"&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;</code></pre>
+
+<p>Buat file: <code>process.php</code> <br>
+  di file <code>process.php</code>, kita dapat mengambil data menggunakan <code>$_GET</code>:</p>
+
+<pre><code>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $name = $_GET["name"];
+    echo "Hello, " . htmlspecialchars($name);
+}
+</code></pre>
+
+<p>Akses:
+  <code>http://localhost/belajarphp/form_get.php</code>, <br> Isi form, dan klik tombol Submit. <br>Data akan terlihat
+  di URL seperti:
+  <code>http://localhost/belajarphp/process.php?name=YourName</code>
+</p>
+
+<hr>
+
+<h5>📘 FORM POST</h5>
+<p>Contoh form menggunakan metode POST:</p>
+Buat file: <code>form_post.php</code>
+<pre><code>&lt;form action="process_post.php" method="post"&gt;
+  Username: &lt;input type="text" name="username">&lt;br&gt;
+  Password: &lt;input type="password" name="password"&gt;&lt;br&gt;
+  &lt;button type="submit"&gt;Login&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+<p>Buat file: <code>process_post.php</code> <br>
+  Di file <code>process_post.php</code>, kita dapat mengambil data menggunakan <code>$_POST</code>:</p>
+<pre><code>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    echo "Username: " . htmlspecialchars($username) . "&lt;br&gt;";
+    echo "Password: " . htmlspecialchars($password);
+}
+?&gt;</code></pre>
+<p>Akses:
+  <code>http://localhost/belajarphp/form_post.php</code>, <br> Isi form, dan klik tombol Submit. <br>Data tidak akan
+  terlihat di URL.
+</p>
+
+<hr>
+
+<h5>📘 VALIDASI DASAR INPUT PENGGUNA</h5>
+<p>Validasi dasar dapat dilakukan untuk memastikan data yang diinputkan sesuai dengan yang diharapkan.</p>
+<p>Contoh validasi sederhana pada form login:</p>
+Buat file: <code>validasi_login.php</code>
+
+<pre><code>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    if (empty($username) || empty($password)) {
+        echo "Username dan password harus diisi.";
+    } else {
+        echo "Username: " . htmlspecialchars($username) . "&lt;br&gt;";
+        echo "Password: " . htmlspecialchars($password);
+    }
+}
+?&gt;</code></pre>
+
+<p>Dengan validasi ini, jika pengguna mengirimkan form tanpa mengisi username atau password, mereka akan menerima
+  pesan kesalahan.</p>
+
+<hr>
+
+<h5>📘 LATIHAN: FORM REGISTRASI SEDERHANA</h5>
+<p>Buat form registrasi sederhana yang meminta nama, email, dan password. Validasi agar semua field harus diisi sebelum
+  data dikirim.</p>
+
+Buat file: <code>register.php</code>
+
+<pre><code>&lt;form action="proses_register.php" method="post"&gt;
+  Nama: &lt;input type="text" name="nama"&gt;&lt;br&gt;
+  Email: &lt;input type="text" name="email"&gt;&lt;br&gt;
+  Password: &lt;input type="password" name="password"&gt;&lt;br&gt;
+  &lt;button type="submit"&gt;Daftar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+Buat file: <code>proses_register.php</code>
+<pre><code>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = $_POST["nama"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    if (empty($nama) || empty($email) || empty($password)) {
+        echo "Semua field harus diisi.";
+    } else {
+        echo "Registrasi berhasil!&lt;br&gt;";
+        echo "Nama: " . htmlspecialchars($nama) . "&lt;br&gt;";
+        echo "Email: " . htmlspecialchars($email);
+    }
+}
+?&gt;</code></pre>
+
+<p>Akses:
+  <code>http://localhost/belajarphp/register.php</code>, <br> Isi form, dan klik tombol Daftar. <br>Jika ada field yang
+  kosong, akan muncul pesan kesalahan.
+</p>
+
+<hr>
