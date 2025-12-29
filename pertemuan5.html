@@ -135,6 +135,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <p>Dengan validasi ini, jika pengguna mengirimkan form tanpa mengisi username atau password, mereka akan menerima
   pesan kesalahan.</p>
 
+<fieldset>
+  <legend>Perhatian</legend>
+  <code>htmlspecialchars()</code> berfungsi untuk mengamankan output sebelum ditampilkan ke halaman web.
+
+  <p>
+    <b>Penjelasan singkat</b><br>
+
+    <code>htmlspecialchars()</code> mengubah karakter khusus HTML menjadi entitas HTML, sehingga karakter tersebut tidak
+    dieksekusi
+    sebagai kode HTML atau JavaScript oleh browser.
+    Contoh karakter yang diubah termasuk:
+  <ul>
+    <li>&lt; menjadi &amp;lt;</li>
+    <li>&gt; menjadi &amp;gt;</li>
+    <li>&amp; menjadi &amp;amp;</li>
+    <li>" menjadi &amp;quot;</li>
+    <li>' menjadi &#039;</li>
+  </ul>
+
+  <p>
+    Dengan menggunakan <code>htmlspecialchars()</code>, kita dapat mencegah serangan XSS (Cross-Site Scripting) di mana
+    penyerang mencoba menyisipkan kode berbahaya ke dalam halaman web.
+  </p>
+
+  <p>
+    Kenapa ini penting? <br> Karena jika kita menampilkan input pengguna langsung tanpa sanitasi, penyerang bisa
+    menyisipkan skrip jahat yang dapat mencuri data pengguna atau merusak tampilan halaman web. Fungsi ini digunakan
+    untuk
+    mencegah serangan XSS (Cross-Site Scripting).
+  </p>
+
+  <ul>
+    <li>Contoh tanpa htmlspecialchars():
+      <pre><code>&lt;?php
+echo "Input pengguna: " . $_GET["input"];
+?&gt;</code></pre>
+      <p>
+        Jika pengguna memasukkan: <code>&lt;script&gt;alert('Hacked!');&lt;/script&gt;</code>, maka akan dieksekusi
+        sebagai
+        skrip.
+      </p>
+    </li>
+    <li>
+      Contoh dengan htmlspecialchars():
+      <pre><code>&lt;?php
+  echo "Input pengguna: " . htmlspecialchars($_GET["input"]);
+  ?&gt;</code></pre>
+      Jika pengguna memasukkan: <code>&lt;script&gt;alert('Hacked!');&lt;/script&gt;</code>, maka akan ditampilkan
+      sebagai
+      teks biasa:
+      <pre><code>Input pengguna: &lt;script&gt;alert('Hacked!');&lt;/script&gt;</code></pre>
+    </li>
+  </ul>
+
+  <p>
+    Jadi, selalu gunakan <code>htmlspecialchars()</code> saat menampilkan data yang berasal dari input pengguna untuk
+    menjaga keamanan aplikasi web Anda.
+  </p>
+</fieldset>
+
+
 <hr>
 
 <h5>📘 LATIHAN: FORM REGISTRASI SEDERHANA</h5>
