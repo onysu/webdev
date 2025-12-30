@@ -15,3 +15,4 @@ $sql = "UPDATE mahasiswa SET
 mysqli_query($conn, $sql);
 
 header("Location: mahasiswa.php");
+?>

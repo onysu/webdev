@@ -1,6 +1,6 @@
 <main>
 
-  <h3>Pertemuan 7 — PHP & MySQL (CRUD Part 2: UPDATE & DELETE)</h3>
+  <h4>Pertemuan 7 — PHP & MySQL (CRUD Part 2: UPDATE & DELETE)</h4>
   <ul>
     <li><b>Durasi</b>: 🕒 120 menit</li>
     <li><b>Server</b>: XAMPP</li>
@@ -34,8 +34,10 @@
 
   <h4>📘 UPDATE DATA (EDIT)</h4>
 
-  Ubah file <code>mahasiswa.php</code> <br> file dari Pertemuan 6, untuk menampilkan tombol Edit dan Delete di setiap
-  baris data mahasiswa.
+  <p>Mengambil file <code>mahasiswa.php</code> dari Pertemuan 6, untuk menambahkan dan menampilkan tombol Edit dan Delete di setiap
+  baris data mahasiswa.</p>
+
+  Ubah file <code>mahasiswa.php</code> <br> 
 
   <pre><code>&lt;?php
 include "mahasiswa_koneksi.php";
@@ -45,13 +47,94 @@ $result = mysqli_query($conn, "SELECT * FROM mahasiswa");
 echo "&lt;h2&gt;Data Mahasiswa&lt;/h&gt;>";
 
 while ($row = mysqli_fetch_assoc($result)) {
-echo $row["nama"] . " - " . $row["jurusan"] . " - " . $row["email"];
-echo " | &lt;a href='edit.php?id=".$row["id"]."'>Edit&lt;/a&gt;";
-echo " | &lt;a href='delete.php?id=".$row["id"]."'>Hapus&lt;/a&gt;&lt;br&gt;";
+echo $row["nama"] . " - " . $row["kelas"] . " - " . $row["alamat"];
+echo " | &lt;a href='mahasiswa_edit.php?id=".$row["id"]."'>Edit&lt;/a&gt;";
+echo " | &lt;a href='mahasiswa_delete.php?id=".$row["id"]."'>Hapus&lt;/a&gt;&lt;br&gt;";
 }
 ?&gt;</code></pre>
 
+<p>Penjelasan:</p>
+  <ul>
+    <li>Menambahkan tautan Edit dan Hapus di setiap baris data mahasiswa.</li>
+    <li>Tautan Edit mengarah ke <code>mahasiswa_edit.php</code> dengan parameter <code>id</code>.</li>
+    <li>Tautan Hapus mengarah ke <code>mahasiswa_delete.php</code> dengan parameter <code>id</code>.</li>
+  </ul>
+
+  <p>Selanjutnya, buat file baru bernama <code>mahasiswa_edit.php</code> untuk mengedit data mahasiswa berdasarkan <code>id</code> yang
+  dikirim melalui URL.</p>
+
+  <pre><code>&lt;?php
+include "mahasiswa_koneksi.php";
+$id = $_GET['id'];
+$result = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE id=$id");
+$row = mysqli_fetch_assoc($result);
+?&gt;
+
+&lt;h2&gt;Edit Data Mahasiswa&lt;/h2&gt;
+&lt;form method="POST" action="mahasiswa_update.php"&gt;
+  &lt;input type="hidden" name="id" value="&lt;?php echo $row['id']; ?&gt;" /&gt;
+  Nama: &lt;input type="text" name="nama" value="&lt;?php echo $row['nama']; ?&gt;" /&gt;&lt;br /&gt;
+  Kelas: &lt;input type="text" name="kelas" value="&lt;?php echo $row['kelas']; ?&gt;" /&gt;&lt;br /&gt;
+  Alamat: &lt;input type="text" name="alamat" value="&lt;?php echo $row['alamat']; ?&gt;" /&gt;&lt;br /&gt;
+  &lt;input type="submit" value="Update" /&gt;
+&lt;/form&gt;</code></pre>
+
+<p>Penjelasan:</p>
+  <ul>
+    <li>Menampilkan form untuk mengedit data mahasiswa berdasarkan <code>id</code>.</li>
+    <li>Menggunakan input hidden untuk menyimpan <code>id</code> agar bisa digunakan saat update.</li>
+  </ul>
+
+  <p>Buat file baru bernama <code>mahasiswa_update.php</code> untuk memproses pembaruan data mahasiswa.</p>
+  <pre><code>&lt;?php
+include "mahasiswa_koneksi.php";
+
+$id = $_POST['id'];
+$nama = $_POST['nama'];
+$kelas = $_POST['kelas'];
+$alamat = $_POST['alamat'];
+
+mysqli_query($conn, "UPDATE mahasiswa SET nama='$nama', kelas='$kelas', alamat='$alamat' WHERE id=$id");
+
+header("Location: mahasiswa.php");
+?&gt;</code></pre>
+
+<p>Penjelasan:</p>
+  <ul>
+    <li>Mengambil data dari form yang dikirim melalui metode POST.</li>
+    <li>Melakukan query UPDATE untuk memperbarui data mahasiswa berdasarkan <code>id</code>.</li>
+    <li>Setelah update, mengarahkan kembali ke halaman <code>mahasiswa.php</code>.</li>
+  </ul>
 
   <hr />
+
+  <h4>📘 DELETE DATA</h4>
+
+  <p>Buat file baru bernama <code>mahasiswa_delete.php</code> untuk menghapus data mahasiswa berdasarkan <code>id</code> yang dikirim melalui URL.</p>
+  <pre><code>&lt;?php
+include "mahasiswa_koneksi.php";
+
+$id = $_GET['id'];
+mysqli_query($conn, "DELETE FROM mahasiswa WHERE id=$id");
+
+header("Location: mahasiswa.php");
+?&gt;</code></pre>
+
+<p>Penjelasan:</p>
+  <ul>
+    <li>Mengambil <code>id</code> dari URL.</li>
+    <li>Melakukan query DELETE untuk menghapus data mahasiswa berdasarkan <code>id</code>.</li>
+    <li>Setelah penghapusan, mengarahkan kembali ke halaman <code>mahasiswa.php</code>.</li>
+  </ul>
+
+<hr>
+
+<h4>📕 CATATAN PENGAJAR</h4>
+<ul>
+  <li>Tekankan konsep <code>id</code> sebagai kunci data.</li>
+  <li>Ingatkan siswa bahaya SQL Injection (akan dibahas).</li>
+  <li>Pastikan redirect pakai <code>header()</code>.</li>
+  <li>Biasakan testing: tambah → edit → hapus.</li>
+</ul>
 
 </main>
