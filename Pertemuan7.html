@@ -1,0 +1,57 @@
+<main>
+
+  <h3>Pertemuan 7 — PHP & MySQL (CRUD Part 2: UPDATE & DELETE)</h3>
+  <ul>
+    <li><b>Durasi</b>: 🕒 120 menit</li>
+    <li><b>Server</b>: XAMPP</li>
+    <li><b>Fokus</b>: Mengubah dan menghapus data database dari PHP</li>
+  </ul>
+
+  <hr />
+
+  <h4>🧩 Tujuan Pembelajaran</h4>
+  Siswa mampu:
+  <ul>
+    <li>Menampilkan tombol Edit dan Delete dari data database.</li>
+    <li>Mengambil data berdasarkan <code>id</code>.</li>
+    <li>Mengubah data di database (UPDATE).</li>
+    <li>Menghapus data di database (DELETE).</li>
+    <li>Membuat CRUD lengkap berbasis PHP & MySQL.</li>
+  </ul>
+
+  <hr />
+
+  <h4>📘 STRUKTUR FILE</h4>
+  <p>Struktur file yang akan digunakan dalam praktikum ini:</p>
+  <ul>
+    <li><code>index.php</code> → Halaman utama untuk menampilkan data siswa.</li>
+    <li><code>create.php</code> → Form untuk menambah data siswa.</li>
+    <li><code>update.php</code> → Form untuk mengubah data siswa.</li>
+    <li><code>delete.php</code> → Script untuk menghapus data siswa.</li>
+  </ul>
+
+  <hr />
+
+  <h4>📘 UPDATE DATA (EDIT)</h4>
+
+  Ubah file <code>mahasiswa.php</code> <br> file dari Pertemuan 6, untuk menampilkan tombol Edit dan Delete di setiap
+  baris data mahasiswa.
+
+  <pre><code>&lt;?php
+include "mahasiswa_koneksi.php";
+
+$result = mysqli_query($conn, "SELECT * FROM mahasiswa");
+
+echo "&lt;h2&gt;Data Mahasiswa&lt;/h&gt;>";
+
+while ($row = mysqli_fetch_assoc($result)) {
+echo $row["nama"] . " - " . $row["jurusan"] . " - " . $row["email"];
+echo " | &lt;a href='edit.php?id=".$row["id"]."'>Edit&lt;/a&gt;";
+echo " | &lt;a href='delete.php?id=".$row["id"]."'>Hapus&lt;/a&gt;&lt;br&gt;";
+}
+?&gt;</code></pre>
+
+
+  <hr />
+
+</main>
