@@ -1,0 +1,500 @@
+<main>
+
+  <h3>🎓 PERTEMUAN 6 — PHP & MySQL (CRUD Part 1: CREATE & READ)</h3>
+  <ul>
+    <li><b>Durasi</b>: 🕒 120 menit</li>
+    <li><b>Server</b>: XAMPP</li>
+    <li><b>Fokus</b>: Menyimpan dan menampilkan data dari database</li>
+  </ul>
+  <hr />
+  <h4>📚 Materi Pembelajaran</h4>
+  <ol>
+    <li>Pengenalan Database MySQL</li>
+    <li>Membuat Database dan Tabel</li>
+    <li>Menghubungkan PHP dengan MySQL</li>
+    <li>Membuat Form Input Data (CREATE)</li>
+    <li>Menampilkan Data dari Database (READ)</li>
+  </ol>
+
+  <hr />
+
+  <h4>🧩 Tujuan Pembelajaran</h4>
+  Siswa mampu:
+  <ul>
+    <li>Memahami konsep database dan tabel.</li>
+    <li>Menggunakan phpMyAdmin di XAMPP.</li>
+    <li>Membuat database dan tabel MySQL.</li>
+    <li>Menghubungkan PHP ke MySQL.</li>
+    <li>Menyimpan dan menampilkan data dari database.</li>
+  </ul>
+
+  <hr />
+
+  <!-- <h4>🛠️ Praktikum</h4>
+  <ol>
+    <li>Buat database bernama <code>db_siswa</code> di phpMyAdmin.</li>
+    <li>Buat tabel <code>siswa</code> dengan kolom: <code>id</code> (INT, PK, AI), <code>nama</code> (VARCHAR),
+      <code>kelas</code> (VARCHAR), <code>alamat</code> (TEXT).</li>
+    <li>Buat file PHP untuk menghubungkan ke database.</li>
+    <li>Buat form HTML untuk input data siswa dan simpan ke database.</li>
+    <li>Buat halaman untuk menampilkan data siswa dari database dalam tabel HTML.</li>
+  </ol>
+
+  <hr /> -->
+
+
+
+  <h4>📘 Konsep Database</h4>
+  <p>Database adalah kumpulan data yang terorganisir dan dapat diakses dengan mudah. MySQL adalah sistem manajemen basis
+    data relasional (RDBMS) yang populer digunakan bersama PHP untuk menyimpan dan mengelola data aplikasi web.</p>
+  <p>Tabel adalah struktur dalam database yang menyimpan data dalam baris dan kolom. Setiap tabel memiliki nama dan
+    terdiri dari beberapa kolom yang mendefinisikan jenis data yang disimpan.</p>
+  <p>
+    Database = tempat menyimpan data secara terstruktur. <br>
+
+    Istilah penting: <br>
+  <ul>
+    <li>Database → lemari</li>
+    <li>Table → laci</li>
+    <li>Field → kolom</li>
+    <li>Record → baris data</li>
+  </ul>
+  </p>
+
+  <p>Contoh:</p>
+  <ul>
+    <li>Database: <code>db_siswa</code></li>
+    <li>Table: <code>siswa</code></li>
+    <li>Field/Kolom: <code>id, nama, kelas, alamat</code></li>
+  </ul>
+
+  <hr>
+
+  <h4>📘 Membuat Database</h4>
+  <p>Langkah-langkah membuat database di phpMyAdmin:</p>
+  <ol>
+    <li>Buka phpMyAdmin melalui XAMPP.</li>
+    <li>Klik tab "Databases" atau "Basis data".
+      <img src="assets/img/Screenshot 2025-12-30 074453.png" alt="phpMyAdmin Interface"
+        style="max-width: 100%; height: auto; display: block; margin: 10px 0;">
+    </li>
+    <li>Masukkan nama database, misalnya <code>db_siswa</code>.</li>
+    <li>Pilih collation (misalnya <code>utf8_general_ci</code>) dan klik "Create" atau "Buat".</li>
+  </ol>
+
+  <hr>
+
+  <h4>📘 Membuat Tabel</h4>
+  <p>Langkah-langkah membuat tabel di phpMyAdmin:</p>
+  <ol>
+    <li>Pilih database yang telah dibuat.</li>
+    <li>Klik tab "Structure" lalu "Create table".</li>
+    <li>Masukkan nama tabel, misalnya <code>siswa</code>, dan jumlah kolom.
+      <img src="assets/img/Screenshot 2025-12-30 075257.png" alt="phpMyAdmin Interface"
+        style="max-width: 100%; height: auto; display: block; margin: 10px 0;">
+    </li>
+    <li>Definisikan kolom seperti <code>id</code> (INT, Primary Key, AI), <code>nama</code> (VARCHAR),
+      <code>kelas</code>
+      (VARCHAR), <code>alamat</code> (TEXT).
+      <img src="assets/img/Screenshot 2025-12-30 075714.png" alt="phpMyAdmin Interface"
+        style="max-width: 100%; height: auto; display: block; margin: 10px 0;">
+      <br>
+      <p><b>Penjelasan:</b></p>
+      <p>Di phpMyAdmin, <b>PK</b> (Primary Key) adalah kolom unik untuk mengidentifikasi setiap baris data, sedangkan
+        <b>AI</b> (Auto
+        Increment) adalah fitur yang membuat nilai kolom PK otomatis bertambah setiap kali ada data baru, sangat berguna
+        untuk
+        kolom ID agar tidak perlu diisi manual. Keduanya sering digunakan bersamaan pada kolom ID untuk memastikan
+        setiap data
+        memiliki pengenal unik yang otomatis bertambah, misalnya 1, 2, 3, dst..
+      </p>
+    </li>
+    <li>Klik "<b>Save</b>" atau "<b>Simpan</b>" yang berada di bawah untuk membuat tabel.
+      <img src="assets/img/Screenshot 2025-12-30 085000.png" alt="phpMyAdmin Interface"
+        style="max-width: 100%; height: auto; display: block; margin: 10px 0;">
+    </li>
+  </ol>
+
+  <hr>
+
+  <h4>📘 Menghubungkan PHP dengan MySQL</h4>
+  <p>Contoh kode untuk menghubungkan PHP dengan MySQL:</p>
+
+  <pre><code>&lt;?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "db_siswa";
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn-&gt;connect_error) {
+    die("Connection failed: " . $conn-&gt;connect_error);
+}
+echo "Terhubung ke Database berhasil!";
+?&gt;</code></pre>
+
+  <p><b>Penjelasan:</b></p>
+  <ol>
+    <li>
+      <code>&lt;?php</code>
+      <br>
+      Ini adalah tanda awal kode PHP. <br>
+      Artinya: “Mulai jalankan perintah PHP di sini”.
+    </li>
+    <li><code>$servername = "localhost";</code>
+      <p>
+        Variabel <code>$servername</code> menyimpan alamat server database. <br>
+        <code>"localhost"</code> berarti database ada di komputer sendiri, bukan di internet. <br>
+        👉 Ibarat rumah, ini seperti alamat rumahnya.
+      </p>
+    </li>
+    <li><code>$username = "root";</code>
+      <p>
+        Username untuk masuk ke database. <br>
+        <code>"root"</code> adalah username default di XAMPP/Laragon. <br>
+        👉 Ini seperti nama pengguna untuk masuk ke rumah.
+      </p>
+    </li>
+    <li><code>$password = "";</code>
+      <p>
+        Password untuk database. <br>
+        Kosong (<code>""</code>) karena default database lokal biasanya tidak pakai password. <br>
+        👉 Ini seperti kunci rumahnya kosong.
+      </p>
+    </li>
+    <li><code>$dbname = "db_siswa";</code>
+      <p>
+        Nama database yang mau dipakai. <br>
+        Di sini namanya <code>db_siswa</code>. <br>
+        👉 Ini seperti nama ruangan yang ingin kita masuki di dalam rumah.
+      </p>
+    </li>
+    <li><code>$conn = new mysqli($servername, $username, $password, $dbname);</code>
+      <p>
+        Baris ini mencoba menghubungkan PHP ke database MySQL. <br>
+        Semua data koneksi tadi dipakai di sini. <br>
+        Hasil koneksi disimpan ke variabel <code>$conn</code>. <br>
+        👉 Ibaratnya: “Coba buka pintu rumah dengan alamat, nama, dan kunci tadi.”
+      </p>
+    </li>
+    <li><code>if ($conn-&gt;connect_error) &#123;</code>
+      <p>
+        Mengecek: apakah koneksi gagal? <br>
+        Kalau ada error, maka kode di dalam <code>{ }</code> akan dijalankan. <br>
+      </p>
+    </li>
+    <li><code>die("Connection failed: " . $conn-&gt;connect_error);</code> <br>
+      Jika koneksi gagal:
+      <ul>
+        <li>Program berhenti.</li>
+        <li>Menampilkan pesan error kenapa gagal.</li>
+      </ul>
+      👉 Supaya kita tahu masalahnya di mana.
+    </li>
+    <li>
+      <code>&#125;</code> <br>
+      Ini menandai akhir dari blok kode <code>if</code>. <br>
+      Artinya: “Selesai memeriksa koneksi.”
+    </li>
+    <li><code>echo "Terhubung ke Database berhasil!";</code> <br>
+      Jika koneksi berhasil, menampilkan pesan sukses. <br>
+      👉 Supaya kita tahu koneksi berhasil.
+    </li>
+    <li>
+      <code>?&gt;</code> <br>
+      Ini adalah tanda akhir kode PHP. <br>
+      Artinya: “Selesai menjalankan perintah PHP di sini”.
+    </li>
+  </ol>
+
+  <p><b>Kesimpulan:</b></p>
+  <ul>
+    <li>Kode di atas menghubungkan PHP ke database MySQL.</li>
+    <li>Jika koneksi berhasil, kita bisa lanjut pakai <code>$conn</code> untuk operasi database.</li>
+    <li>Jika gagal, program berhenti dan menampilkan pesan error.</li>
+  </ul>
+
+  <hr>
+
+  <h4>📘 Menyimpan Data (CREATE)</h4>
+  <p>Contoh kode untuk menyimpan data dari form ke database:</p>
+  <pre><code>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = $_POST['nama'];
+    $kelas = $_POST['kelas'];
+    $alamat = $_POST['alamat'];
+    $sql = "INSERT INTO siswa (nama, kelas, alamat) VALUES ('$nama', '$kelas', '$alamat')";
+    if ($conn-&gt;query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "&lt;br&gt;" . $conn-&gt;error;
+    }
+}
+?&gt;</code></pre>
+
+  <p><b>Penjelasan:</b></p>
+  <ol>
+    <li><code>if ($_SERVER["REQUEST_METHOD"] == "POST") &#123;</code>
+      <p>
+        Mengecek apakah form telah dikirim dengan metode POST. <br>
+        Jika ya, maka kode di dalam <code>{ }</code> akan dijalankan.
+      </p>
+    </li>
+    <li><code>$nama = $_POST['nama'];</code>
+      <p>
+        Mengambil data dari form input dengan nama "nama" dan menyimpannya ke variabel <code>$nama</code>.
+      </p>
+    </li>
+    <li><code>$kelas = $_POST['kelas'];</code>
+      <p>
+        Mengambil data dari form input dengan nama "kelas" dan menyimpannya ke variabel <code>$kelas</code>.
+      </p>
+    </li>
+    <li><code>$alamat = $_POST['alamat'];</code>
+      <p>
+        Mengambil data dari form input dengan nama "alamat" dan menyimpannya ke variabel <code>$alamat</code>.
+      </p>
+    </li>
+    <li><code>$sql = "INSERT INTO siswa (nama, kelas, alamat) VALUES ('$nama', '$kelas', '$alamat')";</code>
+      <p>
+        Membuat query SQL untuk menyisipkan data baru ke tabel <code>siswa</code>.
+      </p>
+    </li>
+    <li><code>if ($conn-&gt;query($sql) === TRUE) &#123;</code>
+      <p>
+        Menjalankan query SQL. Jika berhasil, kode di dalam <code>{ }</code> akan dijalankan.
+      </p>
+    </li>
+    <li><code>echo "New record created successfully";</code>
+      <p>
+        Menampilkan pesan bahwa data baru berhasil disimpan.
+      </p>
+    </li>
+    <li><code>&#125; else &#123;</code>
+      <p>
+        Jika query gagal, kode di dalam <code>{ }</code> akan dijalankan.
+      </p>
+    </li>
+    <li><code>echo "Error: " . $sql . "&lt;br&gt;" . $conn-&gt;error;</code>
+      <p>
+        Menampilkan pesan error beserta detailnya.
+      </p>
+    </li>
+    <li>
+      <code>&#125;</code>
+      <p>
+        Menandai akhir dari blok kode <code>if</code>.
+      </p>
+    </li>
+    <li>
+      <code>&#125;</code>
+      <p>
+        Menandai akhir dari blok kode utama.
+      </p>
+    </li>
+    <li>
+      <code>?&gt;</code>
+      <p>
+        Ini adalah tanda akhir kode PHP.
+      </p>
+    </li>
+  </ol>
+
+  <p><b>Kesimpulan:</b></p>
+  <ul>
+    <li>Kode di atas menyimpan data dari form ke tabel <code>siswa</code> di database.</li>
+    <li>Data diambil dari form menggunakan metode <b>POST</b> dan dimasukkan ke dalam query SQL <b>INSERT</b>.</li>
+    <li>Jika penyimpanan berhasil, pesan sukses ditampilkan; jika gagal, pesan error ditampilkan.</li>
+  </ul>
+
+  <hr>
+
+  <h4>📘 Menampilkan Data (READ)</h4>
+  <p>Contoh kode untuk menampilkan data dari database:</p>
+  <pre><code>&lt;?php
+$sql = "SELECT id, nama, kelas, alamat FROM siswa";
+$result = $conn-&gt;query($sql);
+if ($result-&gt;num_rows &gt; 0) {
+    echo "&lt;table&gt;&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Nama&lt;/th&gt;&lt;th&gt;Kelas&lt;/th&gt;&lt;th&gt;Alamat&lt;/th&gt;&lt;/tr&gt;";
+    while($row = $result-&gt;fetch_assoc()) {
+        echo "&lt;tr&gt;&lt;td&gt;" . $row["id"]. "&lt;/td&gt;&lt;td&gt;" . $row["nama"]. "&lt;/td&gt;&lt;td&gt;" . $row["kelas"]. "&lt;/td&gt;&lt;td&gt;" . $row["alamat"]. "&lt;/td&gt;&lt;/tr&gt;";
+    }
+    echo "&lt;/table&gt;";
+} else {
+    echo "0 results";
+}
+?&gt;</code></pre>
+
+  <p><b>Penjelasan:</b></p>
+  <ol>
+    <li><code>$sql = "SELECT id, nama, kelas, alamat FROM siswa";</code>
+      <p>
+        Membuat query SQL untuk mengambil data dari tabel <code>siswa</code>.
+      </p>
+    </li>
+    <li><code>$result = $conn-&gt;query($sql);</code>
+      <p>
+        Menjalankan query SQL dan menyimpan hasilnya ke variabel <code>$result</code>.
+      </p>
+    </li>
+    <li><code>if ($result-&gt;num_rows &gt; 0) &#123;</code>
+      <p>
+        Mengecek apakah ada data yang diambil. Jika ada, kode di dalam <code>{ }</code> akan dijalankan.
+      </p>
+    </li>
+    <li>
+      <code>echo "&lt;table&gt;&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Nama&lt;/th&gt;&lt;th&gt;Kelas&lt;/th&gt;&lt;th&gt;Alamat&lt;/th&gt;&lt;/tr&gt;";</code>
+      <p>
+        Menampilkan header tabel HTML.
+      </p>
+    </li>
+    <li><code>while($row = $result-&gt;fetch_assoc()) &#123;</code>
+      <p>
+        Looping melalui setiap baris data yang diambil.
+      </p>
+    </li>
+    <li>
+      <code>echo "&lt;tr&gt;&lt;td&gt;" . $row["id"]. "&lt;/td&gt;&lt;td&gt;" . $row["nama"]. "&lt;/td&gt;&lt;td&gt;" . $row["kelas"]. "&lt;/td&gt;&lt;td&gt;" . $row["alamat"]. "&lt;/td&gt;&lt;/tr&gt;";</code>
+      <p>
+        Menampilkan setiap baris data dalam format tabel HTML.
+      </p>
+    </li>
+    <li><code>&#125;</code>
+      <p>
+        Menandai akhir dari blok kode <code>while</code>.
+      </p>
+    </li>
+    <li><code>echo "&lt;/table&gt;";</code>
+      <p>
+        Menutup tag tabel HTML.
+      </p>
+    </li>
+    <li><code>&#125; else &#123;</code>
+      <p>
+        Jika tidak ada data, kode di dalam <code>{ }</code> akan dijalankan.
+      </p>
+    </li>
+    <li><code>echo "0 results";</code>
+      <p>
+        Menampilkan pesan bahwa tidak ada data.
+      </p>
+    </li>
+    <li>
+      <code>&#125;</code>
+      <p>
+        Menandai akhir dari blok kode <code>if</code>.
+      </p>
+    </li>
+    <li>
+      <code>?&gt;</code>
+      <p>
+        Ini adalah tanda akhir kode PHP.
+      </p>
+    </li>
+  </ol>
+
+  <hr>
+
+  <h4>💡 Tips & Trik</h4>
+  <ul>
+    <li>Gunakan prepared statements untuk mencegah SQL injection.</li>
+    <li>Selalu validasi dan sanitasi input dari pengguna.</li>
+    <li>Gunakan CSS untuk mempercantik tampilan tabel data.</li>
+  </ul>
+
+  <hr>
+
+  <h4>📘 Latihan</h4>
+  <ol>
+    <li>Buat database bernama <code>belajar_php</code> di phpMyAdmin.</li>
+    <li>Buat tabel <code>mahasiswa</code> dengan kolom: <br>
+      <ul>
+        <li><b>id</b>: INT, Primary Key (PK), Auto Increment (AI)</li>
+        <li><b>nama</b>: VARCHAR(100)</li>
+        <li><b>jurusan</b>: VARCHAR(100)</li>
+        <li><b>email</b>: VARCHAR(100)</li>
+      </ul>
+    </li>
+    <li>Buat file <code>mahasiswa.php</code> <br>
+      untuk menampilkan semua data mahasiswa dari tabel <code>mahasiswa</code> dalam format tabel HTML.
+    </li>
+    <li>Buat form HTML di file <code>mahasiswa_tambah.php</code> <br>
+      untuk input data mahasiswa (nama, jurusan, email) dan simpan ke tabel <code>mahasiswa</code>.
+    </li>
+    <li>Buat file <code>mahasiswa_simpan.php</code>
+      untuk memproses data dari form <code>tambah.php</code> dan menyimpannya ke database.</li>
+    <li>Buat file <code>mahasiswa_koneksi.php</code> <br>
+      untuk menghubungkan PHP dengan database <code>belajar_php</code>.</li>
+  </ol>
+
+  <b><code>mahasiswa.php</code></b>
+  <pre><code>&lt;?php
+include "mahasiswa_koneksi.php";
+
+$result = mysqli_query($conn, "SELECT * FROM mahasiswa");
+
+echo "&lt;h2&gt;Data Mahasiswa&lt;/h&gt;>";
+
+while ($row = mysqli_fetch_assoc($result)) {
+  echo $row["nama"] . " - " . $row["jurusan"] . " - " . $row["email"] . "&lt;br&gt;";
+}
+?&gt;</code></pre>
+
+  <b><code>mahasiswa_tambah.php</code></b>
+  <pre><code>&lt;?php
+&lt;form action="mahasiswa_simpan.php" method="post"&gt;
+  Nama: &lt;input type="text" name="nama">&lt;br&gt;
+  Jurusan: &lt;input type="text" name="jurusan">&lt;br&gt;
+  Email: &lt;input type="text" name="email">&lt;br&gt;
+  &lt;button type="submit">Simpan&lt;/button&gt;
+&lt;/form&gt;
+?&gt;</code></pre>
+
+  <b><code>mahasiswa_simpan.php</code></b>
+  <pre><code>&lt;?php
+include "mahasiswa_koneksi.php";
+
+$nama = $_POST["nama"];
+$jurusan = $_POST["jurusan"];
+$email = $_POST["email"];
+
+$sql = "INSERT INTO mahasiswa (nama, jurusan, email)
+        VALUES ('$nama', '$jurusan', '$email')";
+
+mysqli_query($conn, $sql);
+
+echo "Data berhasil disimpan";
+?&gt;</code></pre>
+
+  <b><code>mahasiswa_koneksi.php</code></b>
+  <pre><code>&lt;?php
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "belajar_php";
+
+$conn = mysqli_connect($host, $user, $pass, $db);
+
+if (!$conn) {
+  die("Koneksi gagal: " . mysqli_connect_error());
+}
+echo "Koneksi berhasil!";
+?&gt;</code></pre>
+
+  Buka file <code>mahasiswa.php</code> di browser untuk melihat data mahasiswa yang telah disimpan. <br>
+  Buka file <code>mahasiswa_tambah.php</code> untuk menambahkan data mahasiswa baru.
+
+  <hr>
+
+  <h4>📙 Catatan Pengajar</h4>
+  <ul>
+    <li>Pastikan XAMPP sudah berjalan dengan Apache dan MySQL aktif.</li>
+    <li>Jelaskan fungsi include.</li>
+    <li>Ingatkan SQL Injection akan dibahas di pertemuan lanjut.</li>
+    <li>Pastikan siswa mengerti alur:
+      <ul>
+        <li>Form input → simpan ke database → tampilkan data</li>
+    </li>
+  </ul>
+
+
+</main>
